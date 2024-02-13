@@ -6,5 +6,6 @@ Descripción: Este es un ejemplo de un archivo de Python
 @date: 
 
 """
+
 if __name__ == "__main__": # Si se ejecuta este archivo, se ejecutará lo siguiente, pero si se importa, no se ejecutará
     print("Hola mundo!")
