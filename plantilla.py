@@ -7,5 +7,5 @@ Descripción: Este es un ejemplo de un archivo de Python
 
 """
 
-if __name__ == "__main__": # Si se ejecuta este archivo, se ejecutará lo siguiente, pero si se importa, no se ejecutará
+if __name__ == "__main__": # Si se ejecuta este archivo, se ejecutará lo siguiente, pero si se importa como paquete, no se ejecutará
     print("Hola mundo!")
