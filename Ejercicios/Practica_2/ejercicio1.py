@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Descripción: Este es un ejemplo de un archivo de Python
+Descripción: Este programa resuelve un sistema de ecuaciones lineales de 2x2, mediante la librería numpy y la función solve.
 
 @autor: Adriel Diego
 @date: 20/02/2024
