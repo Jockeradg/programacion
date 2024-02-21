@@ -5,7 +5,7 @@ Descripción: Este es un ejemplo de un archivo de Python
 @autor: Adriel Diego
 @date: 21/02/2024
 """
-TOKEN = "192849238082928230ESPE"
+
 a1:float = 1
 b1:float = -2
 c1:float = 3
