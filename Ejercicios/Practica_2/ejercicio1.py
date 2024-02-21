@@ -22,5 +22,5 @@ if __name__ == "__main__": # Si se ejecuta este archivo, se ejecutará lo siguie
  solucion:list = np.linalg.solve(coeficientes, terminos_independientes)
 
  # Imprimir las soluciones
- print("El valor para x es:", solucion[0])
- print("El valor para y es:", solucion[1])
+ print("El valor para x es:", int(solucion[0]))
+ print("El valor para y es:", int(solucion[1]))
