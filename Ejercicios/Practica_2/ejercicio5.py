@@ -40,9 +40,15 @@ def puerta():
     print("*****  ******")
     print("*****  ******")
 
+def main():
+    """
+    Defino la función principal
 
-tejado()
-ventanas()
-ventanas()
-ventanas()
-puerta()
+    """
+    tejado()
+    ventanas()
+    ventanas()
+    ventanas()
+    puerta()
+
+main()
