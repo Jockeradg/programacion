@@ -24,16 +24,17 @@ def fuerza_muelle(alt: float) -> float:
     dada la altura de su extremo
 
     Args:
-    alt: la altura del extremo del muelle, en m
+        alt: la altura del extremo del muelle, en m
     Returns:
-    la fuerza que ejerce el muelle, en N
+        la fuerza que ejerce el muelle, en N
     """
 
     # Retornamos la fuerza calculada por medio de la ley de Hooke
     return -CTE_ELASTICA*alt
 
 
-def avanza_tiempo(alt: float, vel: float, masa: float, tiempo: float) -> tuple[float, float]:
+def avanza_tiempo(alt: float, vel: float, masa: float, 
+                  tiempo: float) -> tuple[float, float]:
     """
     Calcula la nueva altura y velocidad de la masa,
     transcurrido un tiempo especificado
@@ -42,13 +43,13 @@ def avanza_tiempo(alt: float, vel: float, masa: float, tiempo: float) -> tuple[f
     aceleración constante en ese intervalo
 
     Args:
-    alt: la altura actual del extremo del muelle, en m
-    vel: la velocidad actual del extremo del muelle, m/s
-    masa: la masa del cuerpo que pende del muelle, en Kg
-    tiempo: el tiempo transcurrido, en s
+        alt: la altura actual del extremo del muelle, en m
+        vel: la velocidad actual del extremo del muelle, m/s
+        masa: la masa del cuerpo que pende del muelle, en Kg
+        tiempo: el tiempo transcurrido, en s
     Returns:
-    la nueva altura y velocidad de la masa,
-    después de transcurrido un tiempo t
+        la nueva altura y velocidad de la masa,
+        después de transcurrido un tiempo t
     """
 
     # Calculamos la fuerza aplicada sobre la masa, en N
@@ -56,24 +57,25 @@ def avanza_tiempo(alt: float, vel: float, masa: float, tiempo: float) -> tuple[f
     # Aceleración por la ley de newton
     aceleracion = fuerza/masa
     # Ecuacion del movimiento uniformemente acelerado
-    return (alt + vel*tiempo + (aceleracion*tiempo**2)/2,vel + aceleracion*tiempo)
+    return (alt + vel*tiempo + (aceleracion*tiempo**2)/2,
+            vel + aceleracion*tiempo)
 
 
 def main():
     pass
-"""
-Simula el movimiento de una masa suspendida de un
-muelle durante un tiempo, y pone en pantalla
-altura y velocidad. Unidades del S.I.
-"""
-masa: float = 0.25
-incremento: float = 0.01
-alt: float = 0.2
-vel: float = 0
+    """
+    Simula el movimiento de una masa suspendida de un
+    muelle durante un tiempo, y pone en pantalla
+    altura y velocidad. Unidades del S.I.
+    """
+    masa: float = 0.25
+    incremento: float = 0.01
+    alt: float = 0.2
+    vel: float = 0
 
-# Avanzar la simulación y mostrar resultados
-print("Altura=", alt, "m. Velocidad=", vel, "m/s")
-alt, vel = avanza_tiempo(alt, vel, masa, incremento)
-print("Altura=", alt, "m. Velocidad=", vel, "m/s")
-alt, vel = avanza_tiempo(alt, vel, masa, incremento)
-print("Altura=", alt, "m. Velocidad=", vel, "m/s")
+    # Avanzar la simulación y mostrar resultados
+    print("Altura=", alt, "m. Velocidad=", vel, "m/s")
+    alt, vel = avanza_tiempo(alt, vel, masa, incremento)
+    print("Altura=", alt, "m. Velocidad=", vel, "m/s")
+    alt, vel = avanza_tiempo(alt, vel, masa, incremento)
+    print("Altura=", alt, "m. Velocidad=", vel, "m/s")
