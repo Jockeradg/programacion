@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-TODO Descripción del módulo
+Este programa crea una grafica de un
 
 @author: Adriel Diego
 @date: 28/02/2024
 """
 
+import math as mt
 import numpy as np
 import matplotlib.pyplot as plt
-import math as mt
 
 # Constantes
 
@@ -77,27 +77,46 @@ def muestra_diferencias():
     entre los ángulos en radianes y el seno.
     """
     # Añadimos los datos en grados
-    grado1: float = 2.0
-    grado2: float = 5.0
-    grado3: float = 10.0
-    grado4: float = 15.0
-
+    grado: float = 2.0
+    radianes: float = round((mt.radians(grado)),5) # Grado a radianes
+    seno: float = mt.sin(mt.radians(grado)) # Se calculo el seno del angulo
+    aprox: float = 100*((mt.radians(grado))-(mt.sin(mt.radians(grado)))) \
+        /(mt.radians(grado)) #Se calcula el error relativo en porcentaje
     print("Grados\t\tRadianes\t\t\tSeno\t\tDif(%)")
-    print(f"{grado1}\t\t{round((mt.radians(grado1)),5)}\t\t{mt.sin(mt.radians(grado1))}\t\t{100*((mt.radians(grado1))-(mt.sin(mt.radians(grado1))))/(mt.radians(grado1))}")
-    print(f"{grado2}\t\t{round((mt.radians(grado2)),5)}\t\t{mt.sin(mt.radians(grado2))}\t\t{100*((mt.radians(grado2))-(mt.sin(mt.radians(grado2))))/(mt.radians(grado2))}")
-    print(f"{grado3}\t\t{round((mt.radians(grado3)),5)}\t\t{mt.sin(mt.radians(grado3))}\t\t{100*((mt.radians(grado3))-(mt.sin(mt.radians(grado3))))/(mt.radians(grado3))}")
-    print(f"{grado4}\t\t{round((mt.radians(grado4)),5)}\t\t{mt.sin(mt.radians(grado4))}\t\t{100*((mt.radians(grado4))-(mt.sin(mt.radians(grado4))))/(mt.radians(grado4))}")
-    """
-        Se calcula la diferencia relativa entre el ángulo en radianes y el seno
-    """
+
+    print(f"{grado}\t\t{radianes}\t\t{seno}\t\t{aprox}")
+
+    grado: float = 5.0
+    radianes: float = round((mt.radians(grado)),5) # Grado a radianes
+    seno: float = mt.sin(mt.radians(grado)) # Se calculo el seno del angulo
+    aprox: float = 100*((mt.radians(grado))-(mt.sin(mt.radians(grado)))) \
+        /(mt.radians(grado)) #Se calcula el error relativo en porcentaje
+
+    print(f"{grado}\t\t{radianes}\t\t{seno}\t\t{aprox}")
+
+    grado: float = 10.0
+    radianes: float = round((mt.radians(grado)),5) # Grado a radianes
+    seno: float = mt.sin(mt.radians(grado)) # Se calculo el seno del angulo
+    aprox: float = 100*((mt.radians(grado))-(mt.sin(mt.radians(grado)))) \
+        /(mt.radians(grado)) #Se calcula el error relativo en porcentaje
+
+    print(f"{grado}\t\t{radianes}\t\t{seno}\t\t{aprox}")
+
+    grado: float = 15.0
+    radianes: float = round((mt.radians(grado)),5) # Grado a radianes
+    seno: float = mt.sin(mt.radians(grado)) # Se calculo el seno del angulo
+    aprox: float = 100*((mt.radians(grado))-(mt.sin(mt.radians(grado)))) \
+        /(mt.radians(grado)) #Se calcula el error relativo en porcentaje
+
+    print(f"{grado}\t\t{radianes}\t\t{seno}\t\t{aprox}")
 
 def main():
     """
     Función principal
     """
-    print(phi_aprox(0))
-    print(phi_aprox(0.5))
-    print(phi_aprox(1))
+    print("Tiempo: 0.00 s. Angulo",phi_aprox(0), "rad")
+    print("Tiempo: 0.50 s. Angulo",phi_aprox(0.5),"rad")
+    print("Tiempo: 1.00 s. Angulo",phi_aprox(1),"rad")
     muestra_grafica()
     muestra_diferencias()
 
