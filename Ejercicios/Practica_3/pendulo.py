@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Este programa crea una grafica de un
+Este es un ejemplo de un archivo de Python que calcula la posición angular de un péndulo simple
+para pequeñas amplitudes y muestra una gráfica de la oscilación. Además, muestra en pantalla
+la tabla con las diferencias relativas entre los ángulos en radianes y el seno.
 
 @author: Adriel Diego
 @date: 28/02/2024
@@ -71,7 +73,7 @@ def muestra_grafica():
     # Mostrar la gráfica
     plt.show()
 
-def muestra_diferencias():
+def muestra_diferencias()->str:
     """
     Muestra en pantalla la tabla con las diferencias relativas
     entre los ángulos en radianes y el seno.
@@ -79,34 +81,34 @@ def muestra_diferencias():
     # Añadimos los datos en grados
     grado: float = 2.0
     radianes: float = round((mt.radians(grado)),5) # Grado a radianes
-    seno: float = mt.sin(mt.radians(grado)) # Se calculo el seno del angulo
-    aprox: float = 100*((mt.radians(grado))-(mt.sin(mt.radians(grado)))) \
-        /(mt.radians(grado)) #Se calcula el error relativo en porcentaje
+    seno: float = mt.sin(radianes) # Se calculo el seno del angulo
+    aprox: float = 100*((radianes)-(seno)) \
+        /(radianes) #Se calcula el error relativo en porcentaje
     print("Grados\t\tRadianes\t\t\tSeno\t\tDif(%)")
 
     print(f"{grado}\t\t{radianes}\t\t{seno}\t\t{aprox}")
 
     grado: float = 5.0
-    radianes: float = round((mt.radians(grado)),5) # Grado a radianes
-    seno: float = mt.sin(mt.radians(grado)) # Se calculo el seno del angulo
-    aprox: float = 100*((mt.radians(grado))-(mt.sin(mt.radians(grado)))) \
-        /(mt.radians(grado)) #Se calcula el error relativo en porcentaje
+    radianes: float = round(mt.radians(grado),5) # Grado a radianes
+    seno: float = mt.sin(radianes) # Se calculo el seno del angulo
+    aprox: float = 100*((radianes)-(seno)) \
+        /(radianes) #Se calcula el error relativo en porcentaje
 
     print(f"{grado}\t\t{radianes}\t\t{seno}\t\t{aprox}")
 
     grado: float = 10.0
-    radianes: float = round((mt.radians(grado)),5) # Grado a radianes
-    seno: float = mt.sin(mt.radians(grado)) # Se calculo el seno del angulo
-    aprox: float = 100*((mt.radians(grado))-(mt.sin(mt.radians(grado)))) \
-        /(mt.radians(grado)) #Se calcula el error relativo en porcentaje
+    radianes: float = round(mt.radians(grado),5) # Grado a radianes
+    seno: float = mt.sin(radianes) # Se calculo el seno del angulo
+    aprox: float = 100*((radianes)-(seno)) \
+        /(radianes) #Se calcula el error relativo en porcentaje
 
     print(f"{grado}\t\t{radianes}\t\t{seno}\t\t{aprox}")
 
     grado: float = 15.0
-    radianes: float = round((mt.radians(grado)),5) # Grado a radianes
-    seno: float = mt.sin(mt.radians(grado)) # Se calculo el seno del angulo
-    aprox: float = 100*((mt.radians(grado))-(mt.sin(mt.radians(grado)))) \
-        /(mt.radians(grado)) #Se calcula el error relativo en porcentaje
+    radianes: float = round(mt.radians(grado),5) # Grado a radianes
+    seno: float = mt.sin(radianes) # Se calculo el seno del angulo
+    aprox: float = 100*((radianes)-(seno)) \
+        /(radianes) #Se calcula el error relativo en porcentaje
 
     print(f"{grado}\t\t{radianes}\t\t{seno}\t\t{aprox}")
 
