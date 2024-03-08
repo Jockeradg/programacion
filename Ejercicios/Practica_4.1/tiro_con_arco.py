@@ -3,7 +3,7 @@
 Descripción: Este es un ejemplo de un archivo de Python que simula el tiro con arco.
 
 @autor: Adriel Diego
-@date: 
+@date: 06/Marzo/2024
 
 """
 

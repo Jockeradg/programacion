@@ -5,13 +5,13 @@ la altura alcanzada por una flecha disparada con un arco anglosajón y verifica 
 da en la diana. También muestra una gráfica de la trayectoria.
 
 @autor: Adriel Diego
-@date: 06/Feb/2024
+@date: 06/Marzo/2024
 
 """
 import math
 import simulador_trayectoria
 
-# Constants
+# Constantes
 K:float = 400  # N/m
 M:float = 0.055  # kg
 G:float = 9.81  # m/s^2
@@ -27,7 +27,7 @@ LBF_FT_TO_J: float = 1.3558
 
 def energia_potencial(estira: float) -> float:
     """
-    Calcula la energía potencial elástica de un arco anglosajón.
+    Calcula la energía potencial elástica de un arco.
     
     Parametros:
     estira (float): La distancia de estiramiento del arco en metros.
@@ -47,36 +47,22 @@ def velocidad_salida(e_p: float) -> float:
     Returns:
     float: La velocidad de salida del objeto.
     """
-def velocidad_salida(e_p: float) -> float:
-    """
-    Calculates the exit velocity of an object based on its potential energy.
-
-    Parametros:
-    e_p (float): The potential energy of the object.
-
-    Returns:
-    float: The exit velocity of the object.
-    """
     return (2 * e_p / M)**0.5
 
-import math
 
 def altura(despl: float, v_s: float, angulo: float) -> float:
     """
     Calcula la altura alcanzada por una flecha disparada con un arco anglosajón.
 
     Parámetros:
-    despl -- La distancia horizontal recorrida por la flecha (en metros).
-    v_s -- La velocidad inicial de la flecha (en metros por segundo).
-    angulo -- El ángulo de disparo del arco (en radianes).
+    despl (float): La distancia horizontal recorrida por la flecha (en metros).
+    v_s (float): La velocidad inicial de la flecha (en metros por segundo).
+    angulo (float):  El ángulo de disparo del arco (en radianes).
 
     Retorna:
     La altura alcanzada por la flecha (en metros).
     """
     return despl * math.tan(angulo) - (9.8 * despl**2) / (2 * v_s**2 * math.cos(angulo)**2)
-def altura(despl: float, v_s: float, angulo: float) -> float:
-
-    return despl * math.tan(angulo) - (G * despl**2) / (2 * v_s**2 * math.cos(angulo)**2)
 
 
 def main():
