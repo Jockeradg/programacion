@@ -8,21 +8,22 @@ da en la diana. También muestra una gráfica de la trayectoria.
 @date: 06/Marzo/2024
 
 """
+from typing import Final
 import math
 import simulador_trayectoria
 
 # Constantes
-K:float = 400  # N/m
-M:float = 0.055  # kg
-G:float = 9.81  # m/s^2
-DIST_DIANA:float = 70  # m
-RADIO_DIANA:float = 0.6  # m
+K: Final[float] = 400  # N/m
+M: Final[float] = 0.055  # kg
+G: Final[float] = 9.81  # m/s^2
+DIST_DIANA: Final[float] = 70  # m
+RADIO_DIANA: Final[float] = 0.6  # m
 
 
-PULGADA_TO_CM: float = 2.54
-MILLA_TO_KM: float = 1.6093
-PIE_TO_CM: float = 30.48
-LBF_FT_TO_J: float = 1.3558
+PULGADA_TO_CM: Final[float] = 2.54
+MILLA_TO_KM: Final[float] = 1.6093
+PIE_TO_CM: Final[float] = 30.48
+LBF_FT_TO_J: Final[float] = 1.3558
 
 
 def energia_potencial(estira: float) -> float:

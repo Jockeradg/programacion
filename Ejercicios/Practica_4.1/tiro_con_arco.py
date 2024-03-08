@@ -6,16 +6,16 @@ Descripción: Este es un ejemplo de un archivo de Python que simula el tiro con 
 @date: 06/Marzo/2024
 
 """
-
+from typing import Final
 import math
 import simulador_trayectoria
 
 # Constants
-K:float = 400  # N/m
+K: Final[float] = 400  # N/m
 M:float = 0.055  # kg
-G:float = 9.81  # m/s^2
-DIST_DIANA:float = 70  # m
-RADIO_DIANA:float = 0.6  # m
+G: Final[float] = 9.81  # m/s^2
+DIST_DIANA: Final[float] = 70  # m
+RADIO_DIANA: Final[float] = 0.6  # m
 
 def energia_potencial(estira: float) -> float:
     """
