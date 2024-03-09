@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Descripción: Este programa calcula la energía potencial elástica, la velocidad de salida,
-la altura alcanzada por una flecha disparada con un arco anglosajón y verifica si el disparo
+la altura alcanzada por una flecha disparada con un arco en unidades del idioma anglosajón y verifica si el disparo
 da en la diana. También muestra una gráfica de la trayectoria.
 
 @autor: Adriel Diego
