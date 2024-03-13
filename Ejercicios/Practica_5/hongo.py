@@ -91,5 +91,5 @@ def main():
     escr.destruye()
 
 
-if __name__ == "__main__": # Si se ejecuta este archivo, se ejecutará lo siguiente, pero si se importa como paquete, no se ejecutará
+if __name__ == "__main__":
     main()
