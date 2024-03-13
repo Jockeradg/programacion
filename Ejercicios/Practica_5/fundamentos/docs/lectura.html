@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module lectura</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title">lectura</strong></td>
+<td class="extra"><a href=".">index</a><br><br></td></tr></table>
+    <p><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Paquete&nbsp;fundamentos<br>
+&nbsp;&nbsp;Conjunto&nbsp;de&nbsp;módulos&nbsp;para&nbsp;hacer&nbsp;entrada/salida&nbsp;sencilla&nbsp;en&nbsp;Python<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copyright&nbsp;(C)&nbsp;2019-2024<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Universidad&nbsp;de&nbsp;Cantabria,&nbsp;SPAIN<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Versión&nbsp;1.4<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Febrero&nbsp;2024<br>
+&nbsp;<br>
+&nbsp;@author:&nbsp;Michael&nbsp;Gonzalez&nbsp;&nbsp;&nbsp;&lt;mgh@unican.es&gt;<br>
+&nbsp;<br>
+&nbsp;Licencia:&nbsp;GPL<br>
+&nbsp;This&nbsp;program&nbsp;is&nbsp;free&nbsp;software;&nbsp;you&nbsp;can&nbsp;redistribute&nbsp;it&nbsp;and/or<br>
+&nbsp;modify&nbsp;it&nbsp;under&nbsp;the&nbsp;terms&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public<br>
+&nbsp;License&nbsp;as&nbsp;published&nbsp;by&nbsp;the&nbsp;Free&nbsp;Software&nbsp;Foundation;&nbsp;either<br>
+&nbsp;version&nbsp;3&nbsp;of&nbsp;the&nbsp;License,&nbsp;or&nbsp;(at&nbsp;your&nbsp;option)&nbsp;any&nbsp;later&nbsp;version.<br>
+&nbsp;<br>
+&nbsp;This&nbsp;program&nbsp;is&nbsp;distributed&nbsp;in&nbsp;the&nbsp;hope&nbsp;that&nbsp;it&nbsp;will&nbsp;be&nbsp;useful,<br>
+&nbsp;but&nbsp;WITHOUT&nbsp;ANY&nbsp;WARRANTY;&nbsp;without&nbsp;even&nbsp;the&nbsp;implied&nbsp;warranty&nbsp;of<br>
+&nbsp;MERCHANTABILITY&nbsp;or&nbsp;FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE.&nbsp;&nbsp;See&nbsp;the&nbsp;GNU<br>
+&nbsp;General&nbsp;Public&nbsp;License&nbsp;for&nbsp;more&nbsp;details.<br>
+&nbsp;<br>
+-----------------------------------------------------------------------<br>
+lectura.py:&nbsp;Módulo&nbsp;con&nbsp;una&nbsp;clase&nbsp;que&nbsp;permite&nbsp;leer&nbsp;datos<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;de&nbsp;una&nbsp;ventana<br>
+-----------------------------------------------------------------------<br>
+&nbsp;<br>
+--------------------<br>
+--&nbsp;Ejemplo&nbsp;de&nbsp;uso&nbsp;--<br>
+--------------------<br>
+&nbsp;<br>
+from&nbsp;fundamentos.lectura&nbsp;import&nbsp;<a href="#Lectura">Lectura</a><br>
+&nbsp;<br>
+def&nbsp;main():<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Paso&nbsp;1:&nbsp;crear&nbsp;el&nbsp;objeto&nbsp;de&nbsp;la&nbsp;clase&nbsp;<a href="#Lectura">Lectura</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;lec&nbsp;=&nbsp;<a href="#Lectura">Lectura</a>("Datos&nbsp;del&nbsp;experimento")<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Paso&nbsp;2:&nbsp;crear&nbsp;las&nbsp;entradas&nbsp;para&nbsp;leer&nbsp;datos<br>
+&nbsp;&nbsp;&nbsp;&nbsp;lec.crea_entrada("Número&nbsp;de&nbsp;secuencia",&nbsp;1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;lec.crea_entrada("Voltaje&nbsp;(V)",&nbsp;0.0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;lec.crea_entrada("Nombre&nbsp;del&nbsp;técnico",&nbsp;"Pedro")<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Paso&nbsp;3:&nbsp;esperar&nbsp;a&nbsp;que&nbsp;el&nbsp;usuario&nbsp;teclee<br>
+&nbsp;&nbsp;&nbsp;&nbsp;lec.espera()<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Paso&nbsp;4:&nbsp;leer&nbsp;los&nbsp;valores&nbsp;tecleados<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sec:&nbsp;int&nbsp;=&nbsp;lec.lee_int("Número&nbsp;de&nbsp;secuencia")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;volt:&nbsp;float&nbsp;=&nbsp;lec.lee_float("Voltaje&nbsp;(V)")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nombre:&nbsp;str&nbsp;=&nbsp;lec.lee_string("Nombre&nbsp;del&nbsp;técnico")<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Usar&nbsp;los&nbsp;valores&nbsp;obtenidos<br>
+&nbsp;&nbsp;&nbsp;&nbsp;...<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Paso&nbsp;final:&nbsp;destruir&nbsp;la&nbsp;ventana<br>
+&nbsp;&nbsp;&nbsp;&nbsp;lec.destruye()</span></p>
+<p>
+<table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="math.html">math</a><br>
+</td><td class="multicolumn"><a href="time.html">time</a><br>
+</td><td class="multicolumn"></td><td class="multicolumn"></td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor index-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Classes</strong></td></tr>
+    
+<tr><td class="decor index-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl>
+<dt class="heading-text"><a href="builtins.html#object">builtins.object</a>
+</dt><dd>
+<dl>
+<dt class="heading-text"><a href="lectura.html#Lectura">Lectura</a>
+</dt></dl>
+</dd>
+</dl>
+ <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="Lectura">class <strong>Lectura</strong></a>(<a href="builtins.html#object">builtins.object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#Lectura">Lectura</a>(titulo:&nbsp;str)<br>
+&nbsp;<br>
+Esta&nbsp;clase&nbsp;representa&nbsp;una&nbsp;ventana&nbsp;con&nbsp;entradas&nbsp;para&nbsp;teclear&nbsp;datos<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Methods defined here:<br>
+<dl><dt><a name="Lectura-__init__"><strong>__init__</strong></a>(self, titulo: str)</dt><dd><span class="code">Crea&nbsp;la&nbsp;ventana<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;titulo:&nbsp;El&nbsp;título&nbsp;de&nbsp;la&nbsp;ventana</span></dd></dl>
+
+<dl><dt><a name="Lectura-crea_entrada"><strong>crea_entrada</strong></a>(self, etiqueta: str, valor_inicial: str | int | float = '')</dt><dd><span class="code">Crea&nbsp;una&nbsp;entrada&nbsp;en&nbsp;la&nbsp;que&nbsp;se&nbsp;puede&nbsp;teclear&nbsp;texto<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;etiqueta:&nbsp;texto&nbsp;colocado&nbsp;al&nbsp;lado&nbsp;de&nbsp;la&nbsp;entrada&nbsp;para&nbsp;identificarla<br>
+&nbsp;&nbsp;&nbsp;&nbsp;valor_inicial:&nbsp;el&nbsp;valor&nbsp;inicial&nbsp;escrito&nbsp;en&nbsp;la&nbsp;entrada</span></dd></dl>
+
+<dl><dt><a name="Lectura-destruye"><strong>destruye</strong></a>(self)</dt><dd><span class="code">Destruir&nbsp;la&nbsp;ventana</span></dd></dl>
+
+<dl><dt><a name="Lectura-espera"><strong>espera</strong></a>(self) -&gt; bool</dt><dd><span class="code">Pinta&nbsp;la&nbsp;ventana&nbsp;y&nbsp;espera&nbsp;hasta&nbsp;que&nbsp;se&nbsp;pulsa&nbsp;OK<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;si&nbsp;se&nbsp;ha&nbsp;matado&nbsp;la&nbsp;ventana,&nbsp;False&nbsp;si&nbsp;se&nbsp;ha&nbsp;pulsado&nbsp;OK</span></dd></dl>
+
+<dl><dt><a name="Lectura-lee_float"><strong>lee_float</strong></a>(self, etiqueta: str) -&gt; float</dt><dd><span class="code">Lee&nbsp;el&nbsp;número&nbsp;real&nbsp;de&nbsp;la&nbsp;entrada&nbsp;cuya&nbsp;etiqueta&nbsp;se&nbsp;indica<br>
+&nbsp;<br>
+Si&nbsp;la&nbsp;entrada&nbsp;no&nbsp;existe&nbsp;se&nbsp;pone&nbsp;un&nbsp;mensaje&nbsp;de&nbsp;error&nbsp;y&nbsp;se&nbsp;retorna&nbsp;nan<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;etiqueta:&nbsp;la&nbsp;etiqueta&nbsp;de&nbsp;la&nbsp;entrada&nbsp;que&nbsp;se&nbsp;desea&nbsp;leer<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;el&nbsp;número&nbsp;entero&nbsp;escrito&nbsp;en&nbsp;la&nbsp;entrada&nbsp;deseada,&nbsp;si&nbsp;existe,&nbsp;o&nbsp;nan<br>
+&nbsp;&nbsp;&nbsp;&nbsp;si&nbsp;la&nbsp;entrada&nbsp;no&nbsp;existe&nbsp;o&nbsp;es&nbsp;incorrecta</span></dd></dl>
+
+<dl><dt><a name="Lectura-lee_int"><strong>lee_int</strong></a>(self, etiqueta: str) -&gt; int</dt><dd><span class="code">Lee&nbsp;el&nbsp;número&nbsp;entero&nbsp;de&nbsp;la&nbsp;entrada&nbsp;cuya&nbsp;etiqueta&nbsp;se&nbsp;indica<br>
+&nbsp;<br>
+Si&nbsp;la&nbsp;entrada&nbsp;no&nbsp;existe&nbsp;se&nbsp;pone&nbsp;un&nbsp;mensaje&nbsp;de&nbsp;error&nbsp;y&nbsp;retorna&nbsp;-1<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;etiqueta:&nbsp;la&nbsp;etiqueta&nbsp;de&nbsp;la&nbsp;entrada&nbsp;que&nbsp;se&nbsp;desea&nbsp;leer<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;el&nbsp;número&nbsp;entero&nbsp;escrito&nbsp;en&nbsp;la&nbsp;entrada&nbsp;deseada,&nbsp;si&nbsp;existe,&nbsp;o&nbsp;-1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;si&nbsp;la&nbsp;entrada&nbsp;no&nbsp;existe&nbsp;o&nbsp;es&nbsp;incorrecta</span></dd></dl>
+
+<dl><dt><a name="Lectura-lee_string"><strong>lee_string</strong></a>(self, etiqueta: str) -&gt; str</dt><dd><span class="code">Lee&nbsp;el&nbsp;texto&nbsp;de&nbsp;la&nbsp;entrada&nbsp;cuya&nbsp;etiqueta&nbsp;se&nbsp;indica<br>
+&nbsp;<br>
+Si&nbsp;la&nbsp;entrada&nbsp;no&nbsp;existe&nbsp;se&nbsp;pone&nbsp;un&nbsp;mensaje&nbsp;de&nbsp;error<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;etiqueta:&nbsp;la&nbsp;etiqueta&nbsp;de&nbsp;la&nbsp;entrada&nbsp;que&nbsp;se&nbsp;desea&nbsp;leer<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;el&nbsp;texto&nbsp;escrito&nbsp;en&nbsp;la&nbsp;entrada&nbsp;deseada,&nbsp;si&nbsp;existe,&nbsp;o&nbsp;un<br>
+&nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;vacío&nbsp;si&nbsp;la&nbsp;entrada&nbsp;no&nbsp;existe</span></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor data-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Data</strong></td></tr>
+    
+<tr><td class="decor data-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><strong>E</strong> = 'e'<br>
+<strong>SUNKEN</strong> = 'sunken'</td></tr></table>
+</body></html>

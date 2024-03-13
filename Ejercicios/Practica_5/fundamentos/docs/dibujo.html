@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module dibujo</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title">dibujo</strong></td>
+<td class="extra"><a href=".">index</a><br><br></td></tr></table>
+    <p><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Paquete&nbsp;fundamentos<br>
+&nbsp;&nbsp;Conjunto&nbsp;de&nbsp;módulos&nbsp;para&nbsp;hacer&nbsp;entrada/salida&nbsp;sencilla&nbsp;en&nbsp;Python<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copyright&nbsp;(C)&nbsp;2019-2024<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Universidad&nbsp;de&nbsp;Cantabria,&nbsp;SPAIN<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Versión&nbsp;1.4<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Febrero&nbsp;2024<br>
+&nbsp;<br>
+&nbsp;@author:&nbsp;Michael&nbsp;Gonzalez&nbsp;&nbsp;&nbsp;&lt;mgh@unican.es&gt;<br>
+&nbsp;<br>
+&nbsp;Licencia:&nbsp;GPL<br>
+&nbsp;This&nbsp;program&nbsp;is&nbsp;free&nbsp;software;&nbsp;you&nbsp;can&nbsp;redistribute&nbsp;it&nbsp;and/or<br>
+&nbsp;modify&nbsp;it&nbsp;under&nbsp;the&nbsp;terms&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public<br>
+&nbsp;License&nbsp;as&nbsp;published&nbsp;by&nbsp;the&nbsp;Free&nbsp;Software&nbsp;Foundation;&nbsp;either<br>
+&nbsp;version&nbsp;3&nbsp;of&nbsp;the&nbsp;License,&nbsp;or&nbsp;(at&nbsp;your&nbsp;option)&nbsp;any&nbsp;later&nbsp;version.<br>
+&nbsp;<br>
+&nbsp;This&nbsp;program&nbsp;is&nbsp;distributed&nbsp;in&nbsp;the&nbsp;hope&nbsp;that&nbsp;it&nbsp;will&nbsp;be&nbsp;useful,<br>
+&nbsp;but&nbsp;WITHOUT&nbsp;ANY&nbsp;WARRANTY;&nbsp;without&nbsp;even&nbsp;the&nbsp;implied&nbsp;warranty&nbsp;of<br>
+&nbsp;MERCHANTABILITY&nbsp;or&nbsp;FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE.&nbsp;&nbsp;See&nbsp;the&nbsp;GNU<br>
+&nbsp;General&nbsp;Public&nbsp;License&nbsp;for&nbsp;more&nbsp;details.<br>
+&nbsp;<br>
+-----------------------------------------------------------------------<br>
+dibujo.py:&nbsp;Módulo&nbsp;con&nbsp;clases&nbsp;que&nbsp;permiten&nbsp;hacer&nbsp;dibujos&nbsp;sencillos<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;en&nbsp;una&nbsp;ventana<br>
+-----------------------------------------------------------------------<br>
+&nbsp;<br>
+-----------------------<br>
+Sistema&nbsp;de&nbsp;coordenadas:<br>
+-----------------------<br>
+&nbsp;<br>
+Las&nbsp;coordenadas&nbsp;se&nbsp;miden&nbsp;en&nbsp;píxeles,&nbsp;siendo&nbsp;el&nbsp;origen&nbsp;de&nbsp;coordenadas&nbsp;la<br>
+esquina&nbsp;superior&nbsp;izquierda&nbsp;de&nbsp;la&nbsp;ventana,&nbsp;el&nbsp;sentido&nbsp;positivo&nbsp;horizontal<br>
+hacia&nbsp;la&nbsp;derecha&nbsp;y&nbsp;el&nbsp;sentido&nbsp;positivo&nbsp;vertical&nbsp;hacia&nbsp;abajo<br>
+&nbsp;<br>
+&nbsp;0,0<br>
+&nbsp;&nbsp;|----------&gt;&nbsp;X<br>
+&nbsp;&nbsp;|<br>
+&nbsp;&nbsp;|<br>
+&nbsp;&nbsp;|<br>
+&nbsp;&nbsp;Y<br>
+&nbsp;<br>
+--------------------------------------<br>
+Ejemplo&nbsp;de&nbsp;uso&nbsp;para&nbsp;dibujos&nbsp;estáticos:<br>
+--------------------------------------<br>
+&nbsp;<br>
+from&nbsp;fundamentos.dibujo&nbsp;import&nbsp;<a href="#Dibujo">Dibujo</a><br>
+from&nbsp;fundamentos.dibujo&nbsp;import&nbsp;<a href="#Ovalo">Ovalo</a><br>
+from&nbsp;fundamentos.dibujo&nbsp;import&nbsp;<a href="#Poligono">Poligono</a><br>
+&nbsp;<br>
+def&nbsp;main():<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Creamos&nbsp;el&nbsp;dibujo<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dib&nbsp;=&nbsp;<a href="#Dibujo">Dibujo</a>("Prueba&nbsp;de&nbsp;dibujo",&nbsp;640,&nbsp;480)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Creamos&nbsp;un&nbsp;par&nbsp;de&nbsp;figuras&nbsp;en&nbsp;el&nbsp;dibujo&nbsp;dib<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ball&nbsp;=&nbsp;<a href="#Ovalo">Ovalo</a>(dib,&nbsp;0,&nbsp;0,&nbsp;25,&nbsp;25,&nbsp;"red")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;triangulo&nbsp;=&nbsp;<a href="#Poligono">Poligono</a>(dib,&nbsp;[150,&nbsp;300,&nbsp;200,&nbsp;320,&nbsp;240,&nbsp;380],&nbsp;"blue")<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Pintamos&nbsp;el&nbsp;dibujo&nbsp;y&nbsp;esperamos&nbsp;a&nbsp;que&nbsp;se&nbsp;cierre&nbsp;la&nbsp;ventana<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dib.espera()<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Destruimos&nbsp;el&nbsp;dibujo<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dib.destruye()<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Si&nbsp;queremos&nbsp;hacer&nbsp;algo&nbsp;más&nbsp;con&nbsp;el&nbsp;dibujo&nbsp;hay&nbsp;que&nbsp;comprobar&nbsp;que<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;no&nbsp;se&nbsp;haya&nbsp;matado&nbsp;la&nbsp;ventana.&nbsp;Para&nbsp;ello&nbsp;cambiamos&nbsp;la&nbsp;llamada&nbsp;a&nbsp;espera():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;terminar:&nbsp;bool&nbsp;=&nbsp;dib.espera()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;if&nbsp;not&nbsp;terminar:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br>
+&nbsp;<br>
+-----------------------------<br>
+Ejemplo&nbsp;de&nbsp;un&nbsp;dibujo&nbsp;animado:<br>
+-----------------------------<br>
+&nbsp;<br>
+from&nbsp;fundamentos.dibujo&nbsp;import&nbsp;<a href="#Dibujo">Dibujo</a><br>
+from&nbsp;fundamentos.dibujo&nbsp;import&nbsp;<a href="#Ovalo">Ovalo</a><br>
+from&nbsp;fundamentos.dibujo&nbsp;import&nbsp;<a href="#Poligono">Poligono</a><br>
+&nbsp;<br>
+def&nbsp;main():<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Creamos&nbsp;el&nbsp;dibujo<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dib&nbsp;=&nbsp;<a href="#Dibujo">Dibujo</a>("Prueba&nbsp;de&nbsp;dibujo",&nbsp;640,&nbsp;480)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Creamos&nbsp;un&nbsp;par&nbsp;de&nbsp;figuras&nbsp;en&nbsp;el&nbsp;dibujo&nbsp;dib<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ball&nbsp;=&nbsp;<a href="#Ovalo">Ovalo</a>(dib,&nbsp;0,&nbsp;0,&nbsp;25,&nbsp;25,&nbsp;"red")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;triangulo&nbsp;=&nbsp;<a href="#Poligono">Poligono</a>(dib,&nbsp;[150,&nbsp;300,&nbsp;200,&nbsp;320,&nbsp;240,&nbsp;380],&nbsp;"blue")<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;finalizar:&nbsp;bool&nbsp;=&nbsp;False<br>
+&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;not&nbsp;finalizar:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Determinar&nbsp;cuánto&nbsp;hay&nbsp;que&nbsp;moverse<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delta_x&nbsp;=&nbsp;...<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delta_y&nbsp;=&nbsp;...<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Mover&nbsp;las&nbsp;figuras<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ball.mueve(delta_x,&nbsp;delta_y)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;triangulo.mueve(delta_x,&nbsp;delta_y)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Redibujar&nbsp;y&nbsp;mirar&nbsp;a&nbsp;ver&nbsp;si&nbsp;se&nbsp;ha&nbsp;matado&nbsp;la&nbsp;ventana<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;finalizar&nbsp;=&nbsp;dib.pinta()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;destruir&nbsp;el&nbsp;dibujo&nbsp;al&nbsp;finalizar&nbsp;del&nbsp;bucle<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dib.destruye()<br>
+&nbsp;<br>
+-----------------<br>
+--&nbsp;Nota&nbsp;de&nbsp;uso&nbsp;--<br>
+-----------------<br>
+Cuando&nbsp;un&nbsp;programa&nbsp;que&nbsp;usa&nbsp;este&nbsp;módulo&nbsp;tiene&nbsp;un&nbsp;fallo&nbsp;y&nbsp;la&nbsp;ventana&nbsp;no&nbsp;se<br>
+destruye&nbsp;correctamente,&nbsp;el&nbsp;terminal&nbsp;de&nbsp;IPython&nbsp;del&nbsp;entorno&nbsp;Spyder&nbsp;redibuja<br>
+la&nbsp;ventana&nbsp;anterior&nbsp;cuando&nbsp;se&nbsp;vuelve&nbsp;a&nbsp;ejecutar&nbsp;el&nbsp;programa,&nbsp;apareciendo<br>
+ventanas&nbsp;duplicadas.&nbsp;Para&nbsp;recuperarse&nbsp;de&nbsp;esta&nbsp;situación&nbsp;basta&nbsp;reiniciar<br>
+el&nbsp;terminal&nbsp;(botón&nbsp;derecho&nbsp;en&nbsp;el&nbsp;terminal,&nbsp;y&nbsp;"Salir")<br>
+&nbsp;<br>
+@author:&nbsp;Michael.<br>
+@date:&nbsp;&nbsp;&nbsp;Feb&nbsp;2019</span></p>
+<p>
+<table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="time.html">time</a><br>
+</td><td class="multicolumn"></td><td class="multicolumn"></td><td class="multicolumn"></td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor index-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Classes</strong></td></tr>
+    
+<tr><td class="decor index-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl>
+<dt class="heading-text"><a href="builtins.html#object">builtins.object</a>
+</dt><dd>
+<dl>
+<dt class="heading-text"><a href="dibujo.html#Dibujo">Dibujo</a>
+</dt><dt class="heading-text"><a href="dibujo.html#Figura">Figura</a>
+</dt><dd>
+<dl>
+<dt class="heading-text"><a href="dibujo.html#Imagen">Imagen</a>
+</dt><dt class="heading-text"><a href="dibujo.html#Linea">Linea</a>
+</dt><dt class="heading-text"><a href="dibujo.html#Ovalo">Ovalo</a>
+</dt><dt class="heading-text"><a href="dibujo.html#Poligono">Poligono</a>
+</dt><dt class="heading-text"><a href="dibujo.html#Rectangulo">Rectangulo</a>
+</dt><dt class="heading-text"><a href="dibujo.html#Texto">Texto</a>
+</dt></dl>
+</dd>
+</dl>
+</dd>
+</dl>
+ <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="Dibujo">class <strong>Dibujo</strong></a>(<a href="builtins.html#object">builtins.object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#Dibujo">Dibujo</a>(titulo:&nbsp;str,&nbsp;width:&nbsp;int&nbsp;=&nbsp;500,&nbsp;height:&nbsp;int&nbsp;=&nbsp;400)<br>
+&nbsp;<br>
+Esta&nbsp;clase&nbsp;representa&nbsp;una&nbsp;ventana&nbsp;con&nbsp;un&nbsp;lienzo&nbsp;de&nbsp;dibujo<br>
+&nbsp;<br>
+El&nbsp;lienzo&nbsp;de&nbsp;dibujo&nbsp;se&nbsp;usará&nbsp;al&nbsp;crear&nbsp;figuras&nbsp;tales&nbsp;como&nbsp;rectángulos,<br>
+polígonos,&nbsp;etc.,&nbsp;usando&nbsp;el&nbsp;resto&nbsp;de&nbsp;las&nbsp;clases&nbsp;de&nbsp;este&nbsp;módulo<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Methods defined here:<br>
+<dl><dt><a name="Dibujo-__init__"><strong>__init__</strong></a>(self, titulo: str, width: int = 500, height: int = 400)</dt><dd><span class="code">Crea&nbsp;la&nbsp;ventana<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;titulo:&nbsp;El&nbsp;título&nbsp;de&nbsp;la&nbsp;ventana<br>
+&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;Anchura&nbsp;de&nbsp;la&nbsp;ventana&nbsp;en&nbsp;píxeles.&nbsp;Valor&nbsp;por&nbsp;defecto,&nbsp;500<br>
+&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;Altura&nbsp;de&nbsp;la&nbsp;ventana&nbsp;en&nbsp;píxeles.&nbsp;Valor&nbsp;por&nbsp;defecto,&nbsp;400</span></dd></dl>
+
+<dl><dt><a name="Dibujo-destruye"><strong>destruye</strong></a>(self)</dt><dd><span class="code">Destruir&nbsp;la&nbsp;ventana</span></dd></dl>
+
+<dl><dt><a name="Dibujo-espera"><strong>espera</strong></a>(self) -&gt; bool</dt><dd><span class="code">Pinta&nbsp;el&nbsp;dibujo&nbsp;y&nbsp;espera&nbsp;hasta&nbsp;que&nbsp;se&nbsp;pulsa&nbsp;OK&nbsp;o&nbsp;se&nbsp;mata&nbsp;la&nbsp;ventana<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;si&nbsp;se&nbsp;ha&nbsp;matado&nbsp;la&nbsp;ventana,&nbsp;False&nbsp;si&nbsp;se&nbsp;ha&nbsp;pulsado&nbsp;OK</span></dd></dl>
+
+<dl><dt><a name="Dibujo-get_canvas"><strong>get_canvas</strong></a>(self)</dt><dd><span class="code">Obtener&nbsp;el&nbsp;lienzo&nbsp;interno&nbsp;de&nbsp;dibujo</span></dd></dl>
+
+<dl><dt><a name="Dibujo-pinta"><strong>pinta</strong></a>(self) -&gt; bool</dt><dd><span class="code">Pinta&nbsp;el&nbsp;dibujo&nbsp;y&nbsp;espera&nbsp;un&nbsp;poco<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Booleano&nbsp;que&nbsp;indica&nbsp;si&nbsp;se&nbsp;debe&nbsp;destruir&nbsp;la&nbsp;ventana&nbsp;o&nbsp;no</span></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+</td></tr></table> <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="Figura">class <strong>Figura</strong></a>(<a href="builtins.html#object">builtins.object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#Figura">Figura</a>(dib)<br>
+&nbsp;<br>
+Clase&nbsp;abstracta&nbsp;que&nbsp;define&nbsp;una&nbsp;figura&nbsp;genérica.&nbsp;No&nbsp;usar&nbsp;directamente<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Methods defined here:<br>
+<dl><dt><a name="Figura-__init__"><strong>__init__</strong></a>(self, dib)</dt><dd><span class="code">Crea&nbsp;la&nbsp;figura</span></dd></dl>
+
+<dl><dt><a name="Figura-borra"><strong>borra</strong></a>(self)</dt><dd><span class="code">Borra&nbsp;la&nbsp;figura&nbsp;del&nbsp;dibujo</span></dd></dl>
+
+<dl><dt><a name="Figura-coloca"><strong>coloca</strong></a>(self, c_x: int, c_y: int)</dt><dd><span class="code">Coloca&nbsp;la&nbsp;figura&nbsp;en&nbsp;las&nbsp;coordenadas&nbsp;indicadas<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;c_x:&nbsp;Coordenada&nbsp;x&nbsp;donde&nbsp;se&nbsp;coloca&nbsp;el&nbsp;centro&nbsp;de&nbsp;la&nbsp;figura<br>
+&nbsp;&nbsp;&nbsp;&nbsp;c_y:&nbsp;Coordenada&nbsp;y&nbsp;donde&nbsp;se&nbsp;coloca&nbsp;el&nbsp;centro&nbsp;de&nbsp;la&nbsp;figura</span></dd></dl>
+
+<dl><dt><a name="Figura-get_canvas"><strong>get_canvas</strong></a>(self)</dt><dd><span class="code">Obtener&nbsp;el&nbsp;lienzo&nbsp;interno&nbsp;de&nbsp;dibujo</span></dd></dl>
+
+<dl><dt><a name="Figura-mueve"><strong>mueve</strong></a>(self, delta_x: int, delta_y: int)</dt><dd><span class="code">Mueve&nbsp;la&nbsp;figura&nbsp;en&nbsp;sentido&nbsp;horizontal&nbsp;y&nbsp;vertical<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;delta_x:&nbsp;Píxeles&nbsp;a&nbsp;mover&nbsp;en&nbsp;sentido&nbsp;horizontal<br>
+&nbsp;&nbsp;&nbsp;&nbsp;delta_y:&nbsp;Píxeles&nbsp;a&nbsp;mover&nbsp;en&nbsp;sentido&nbsp;vertical</span></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+</td></tr></table> <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="Imagen">class <strong>Imagen</strong></a>(<a href="dibujo.html#Figura">Figura</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#Imagen">Imagen</a>(dib:&nbsp;dibujo.<a href="#Dibujo">Dibujo</a>,&nbsp;pos_x:&nbsp;int,&nbsp;pos_y:&nbsp;int,&nbsp;nombre_fichero:&nbsp;str)<br>
+&nbsp;<br>
+Define&nbsp;una&nbsp;imagen&nbsp;obtenida&nbsp;a&nbsp;partir&nbsp;de&nbsp;un&nbsp;archivo&nbsp;.gif,&nbsp;o&nbsp;.png<br>
+(no&nbsp;.jpg)&nbsp;para&nbsp;dibujar&nbsp;en&nbsp;un&nbsp;objeto&nbsp;de&nbsp;la&nbsp;clase&nbsp;<a href="#Dibujo">Dibujo</a><br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt>Method resolution order:</dt>
+<dd><a href="dibujo.html#Imagen">Imagen</a></dd>
+<dd><a href="dibujo.html#Figura">Figura</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Imagen-__init__"><strong>__init__</strong></a>(self, dib: dibujo.Dibujo, pos_x: int, pos_y: int, nombre_fichero: str)</dt><dd><span class="code">Crea&nbsp;la&nbsp;imagen&nbsp;en&nbsp;la&nbsp;posición&nbsp;indicada<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dib:&nbsp;El&nbsp;objeto&nbsp;de&nbsp;la&nbsp;clase&nbsp;<a href="#Dibujo">Dibujo</a>&nbsp;que&nbsp;representa&nbsp;la&nbsp;ventana<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pos_x:&nbsp;Coordenada&nbsp;x&nbsp;del&nbsp;centro&nbsp;de&nbsp;la&nbsp;imagen<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pos_y:&nbsp;Coordenada&nbsp;y&nbsp;del&nbsp;centro&nbsp;de&nbsp;la&nbsp;imagen<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nombre_fichero:&nbsp;El&nbsp;nombre&nbsp;del&nbsp;fichero,&nbsp;incluyendo&nbsp;la&nbsp;extensión</span></dd></dl>
+
+<hr>
+Methods inherited from <a href="dibujo.html#Figura">Figura</a>:<br>
+<dl><dt><a name="Imagen-borra"><strong>borra</strong></a>(self)</dt><dd><span class="code">Borra&nbsp;la&nbsp;figura&nbsp;del&nbsp;dibujo</span></dd></dl>
+
+<dl><dt><a name="Imagen-coloca"><strong>coloca</strong></a>(self, c_x: int, c_y: int)</dt><dd><span class="code">Coloca&nbsp;la&nbsp;figura&nbsp;en&nbsp;las&nbsp;coordenadas&nbsp;indicadas<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;c_x:&nbsp;Coordenada&nbsp;x&nbsp;donde&nbsp;se&nbsp;coloca&nbsp;el&nbsp;centro&nbsp;de&nbsp;la&nbsp;figura<br>
+&nbsp;&nbsp;&nbsp;&nbsp;c_y:&nbsp;Coordenada&nbsp;y&nbsp;donde&nbsp;se&nbsp;coloca&nbsp;el&nbsp;centro&nbsp;de&nbsp;la&nbsp;figura</span></dd></dl>
+
+<dl><dt><a name="Imagen-get_canvas"><strong>get_canvas</strong></a>(self)</dt><dd><span class="code">Obtener&nbsp;el&nbsp;lienzo&nbsp;interno&nbsp;de&nbsp;dibujo</span></dd></dl>
+
+<dl><dt><a name="Imagen-mueve"><strong>mueve</strong></a>(self, delta_x: int, delta_y: int)</dt><dd><span class="code">Mueve&nbsp;la&nbsp;figura&nbsp;en&nbsp;sentido&nbsp;horizontal&nbsp;y&nbsp;vertical<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;delta_x:&nbsp;Píxeles&nbsp;a&nbsp;mover&nbsp;en&nbsp;sentido&nbsp;horizontal<br>
+&nbsp;&nbsp;&nbsp;&nbsp;delta_y:&nbsp;Píxeles&nbsp;a&nbsp;mover&nbsp;en&nbsp;sentido&nbsp;vertical</span></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="dibujo.html#Figura">Figura</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+</td></tr></table> <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="Linea">class <strong>Linea</strong></a>(<a href="dibujo.html#Figura">Figura</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#Linea">Linea</a>(dib:&nbsp;dibujo.<a href="#Dibujo">Dibujo</a>,&nbsp;x1:&nbsp;int,&nbsp;y1:&nbsp;int,&nbsp;x2:&nbsp;int,&nbsp;y2:&nbsp;int,&nbsp;color:&nbsp;str)<br>
+&nbsp;<br>
+Define&nbsp;una&nbsp;línea&nbsp;para&nbsp;dibujar&nbsp;en&nbsp;un&nbsp;objeto&nbsp;de&nbsp;la&nbsp;clase&nbsp;<a href="#Dibujo">Dibujo</a><br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt>Method resolution order:</dt>
+<dd><a href="dibujo.html#Linea">Linea</a></dd>
+<dd><a href="dibujo.html#Figura">Figura</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Linea-__init__"><strong>__init__</strong></a>(self, dib: dibujo.Dibujo, x1: int, y1: int, x2: int, y2: int, color: str)</dt><dd><span class="code">Crea&nbsp;la&nbsp;línea&nbsp;entre&nbsp;(x1,&nbsp;y1)&nbsp;y&nbsp;(x2,&nbsp;y2)<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dib:&nbsp;El&nbsp;objeto&nbsp;de&nbsp;la&nbsp;clase&nbsp;<a href="#Dibujo">Dibujo</a>&nbsp;que&nbsp;representa&nbsp;la&nbsp;ventana<br>
+&nbsp;&nbsp;&nbsp;&nbsp;x1:&nbsp;Coordenada&nbsp;x&nbsp;del&nbsp;punto&nbsp;1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;y1:&nbsp;Coordenada&nbsp;y&nbsp;del&nbsp;punto&nbsp;1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;x2:&nbsp;Coordenada&nbsp;x&nbsp;del&nbsp;punto&nbsp;2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;y1:&nbsp;Coordenada&nbsp;y&nbsp;del&nbsp;punto&nbsp;2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;El&nbsp;color&nbsp;de&nbsp;la&nbsp;línea.&nbsp;Ejemplo&nbsp;"red",&nbsp;"dark&nbsp;green"</span></dd></dl>
+
+<hr>
+Methods inherited from <a href="dibujo.html#Figura">Figura</a>:<br>
+<dl><dt><a name="Linea-borra"><strong>borra</strong></a>(self)</dt><dd><span class="code">Borra&nbsp;la&nbsp;figura&nbsp;del&nbsp;dibujo</span></dd></dl>
+
+<dl><dt><a name="Linea-coloca"><strong>coloca</strong></a>(self, c_x: int, c_y: int)</dt><dd><span class="code">Coloca&nbsp;la&nbsp;figura&nbsp;en&nbsp;las&nbsp;coordenadas&nbsp;indicadas<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;c_x:&nbsp;Coordenada&nbsp;x&nbsp;donde&nbsp;se&nbsp;coloca&nbsp;el&nbsp;centro&nbsp;de&nbsp;la&nbsp;figura<br>
+&nbsp;&nbsp;&nbsp;&nbsp;c_y:&nbsp;Coordenada&nbsp;y&nbsp;donde&nbsp;se&nbsp;coloca&nbsp;el&nbsp;centro&nbsp;de&nbsp;la&nbsp;figura</span></dd></dl>
+
+<dl><dt><a name="Linea-get_canvas"><strong>get_canvas</strong></a>(self)</dt><dd><span class="code">Obtener&nbsp;el&nbsp;lienzo&nbsp;interno&nbsp;de&nbsp;dibujo</span></dd></dl>
+
+<dl><dt><a name="Linea-mueve"><strong>mueve</strong></a>(self, delta_x: int, delta_y: int)</dt><dd><span class="code">Mueve&nbsp;la&nbsp;figura&nbsp;en&nbsp;sentido&nbsp;horizontal&nbsp;y&nbsp;vertical<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;delta_x:&nbsp;Píxeles&nbsp;a&nbsp;mover&nbsp;en&nbsp;sentido&nbsp;horizontal<br>
+&nbsp;&nbsp;&nbsp;&nbsp;delta_y:&nbsp;Píxeles&nbsp;a&nbsp;mover&nbsp;en&nbsp;sentido&nbsp;vertical</span></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="dibujo.html#Figura">Figura</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+</td></tr></table> <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="Ovalo">class <strong>Ovalo</strong></a>(<a href="dibujo.html#Figura">Figura</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#Ovalo">Ovalo</a>(dib:&nbsp;dibujo.<a href="#Dibujo">Dibujo</a>,&nbsp;xmin:&nbsp;int,&nbsp;ymin:&nbsp;int,&nbsp;xmax:&nbsp;int,&nbsp;ymax:&nbsp;int,&nbsp;color:&nbsp;str)<br>
+&nbsp;<br>
+Define&nbsp;un&nbsp;ovalo&nbsp;para&nbsp;dibujar&nbsp;en&nbsp;un&nbsp;objeto&nbsp;de&nbsp;la&nbsp;clase&nbsp;<a href="#Dibujo">Dibujo</a><br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt>Method resolution order:</dt>
+<dd><a href="dibujo.html#Ovalo">Ovalo</a></dd>
+<dd><a href="dibujo.html#Figura">Figura</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Ovalo-__init__"><strong>__init__</strong></a>(self, dib: dibujo.Dibujo, xmin: int, ymin: int, xmax: int, ymax: int, color: str)</dt><dd><span class="code">Crea&nbsp;el&nbsp;ovalo&nbsp;inscrito&nbsp;en&nbsp;el&nbsp;rectángulo&nbsp;de&nbsp;esquinas&nbsp;en<br>
+(xmin,&nbsp;ymin)&nbsp;y&nbsp;(xmax,&nbsp;ymax)<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dib:&nbsp;El&nbsp;objeto&nbsp;de&nbsp;la&nbsp;clase&nbsp;<a href="#Dibujo">Dibujo</a>&nbsp;que&nbsp;representa&nbsp;la&nbsp;ventana<br>
+&nbsp;&nbsp;&nbsp;&nbsp;xmin:&nbsp;Coordenada&nbsp;x&nbsp;de&nbsp;la&nbsp;esquina&nbsp;superior&nbsp;izquierda&nbsp;del&nbsp;rectángulo<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ymin:&nbsp;Coordenada&nbsp;y&nbsp;de&nbsp;la&nbsp;esquina&nbsp;superior&nbsp;izquierda&nbsp;del&nbsp;rectángulo<br>
+&nbsp;&nbsp;&nbsp;&nbsp;xmax:&nbsp;Coordenada&nbsp;x&nbsp;de&nbsp;la&nbsp;esquina&nbsp;inferior&nbsp;derecha&nbsp;del&nbsp;rectángulo<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ymax:&nbsp;Coordenada&nbsp;y&nbsp;de&nbsp;la&nbsp;esquina&nbsp;inferior&nbsp;derecha&nbsp;del&nbsp;rectángulo<br>
+&nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;El&nbsp;color&nbsp;de&nbsp;la&nbsp;línea.&nbsp;Ejemplo&nbsp;"red",&nbsp;"dark&nbsp;green"</span></dd></dl>
+
+<hr>
+Methods inherited from <a href="dibujo.html#Figura">Figura</a>:<br>
+<dl><dt><a name="Ovalo-borra"><strong>borra</strong></a>(self)</dt><dd><span class="code">Borra&nbsp;la&nbsp;figura&nbsp;del&nbsp;dibujo</span></dd></dl>
+
+<dl><dt><a name="Ovalo-coloca"><strong>coloca</strong></a>(self, c_x: int, c_y: int)</dt><dd><span class="code">Coloca&nbsp;la&nbsp;figura&nbsp;en&nbsp;las&nbsp;coordenadas&nbsp;indicadas<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;c_x:&nbsp;Coordenada&nbsp;x&nbsp;donde&nbsp;se&nbsp;coloca&nbsp;el&nbsp;centro&nbsp;de&nbsp;la&nbsp;figura<br>
+&nbsp;&nbsp;&nbsp;&nbsp;c_y:&nbsp;Coordenada&nbsp;y&nbsp;donde&nbsp;se&nbsp;coloca&nbsp;el&nbsp;centro&nbsp;de&nbsp;la&nbsp;figura</span></dd></dl>
+
+<dl><dt><a name="Ovalo-get_canvas"><strong>get_canvas</strong></a>(self)</dt><dd><span class="code">Obtener&nbsp;el&nbsp;lienzo&nbsp;interno&nbsp;de&nbsp;dibujo</span></dd></dl>
+
+<dl><dt><a name="Ovalo-mueve"><strong>mueve</strong></a>(self, delta_x: int, delta_y: int)</dt><dd><span class="code">Mueve&nbsp;la&nbsp;figura&nbsp;en&nbsp;sentido&nbsp;horizontal&nbsp;y&nbsp;vertical<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;delta_x:&nbsp;Píxeles&nbsp;a&nbsp;mover&nbsp;en&nbsp;sentido&nbsp;horizontal<br>
+&nbsp;&nbsp;&nbsp;&nbsp;delta_y:&nbsp;Píxeles&nbsp;a&nbsp;mover&nbsp;en&nbsp;sentido&nbsp;vertical</span></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="dibujo.html#Figura">Figura</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+</td></tr></table> <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="Poligono">class <strong>Poligono</strong></a>(<a href="dibujo.html#Figura">Figura</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#Poligono">Poligono</a>(dib:&nbsp;dibujo.<a href="#Dibujo">Dibujo</a>,&nbsp;puntos:&nbsp;list[int],&nbsp;color:&nbsp;str&nbsp;=&nbsp;'black',&nbsp;abierto:&nbsp;bool&nbsp;=&nbsp;False)<br>
+&nbsp;<br>
+Define&nbsp;un&nbsp;polígono&nbsp;para&nbsp;dibujar&nbsp;en&nbsp;un&nbsp;objeto&nbsp;de&nbsp;la&nbsp;clase&nbsp;<a href="#Dibujo">Dibujo</a><br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt>Method resolution order:</dt>
+<dd><a href="dibujo.html#Poligono">Poligono</a></dd>
+<dd><a href="dibujo.html#Figura">Figura</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Poligono-__init__"><strong>__init__</strong></a>(self, dib: dibujo.Dibujo, puntos: list[int], color: str = 'black', abierto: bool = False)</dt><dd><span class="code">Crea&nbsp;el&nbsp;poligono&nbsp;abierto&nbsp;o&nbsp;cerrado.&nbsp;Las&nbsp;coordenadas&nbsp;del&nbsp;polígono<br>
+se&nbsp;definen&nbsp;en&nbsp;una&nbsp;lista&nbsp;que&nbsp;alterna&nbsp;las&nbsp;coordenadas&nbsp;x,y,&nbsp;de&nbsp;la&nbsp;forma<br>
+[x1,&nbsp;y1,&nbsp;x2,&nbsp;y2,&nbsp;x3,&nbsp;y3,&nbsp;...]<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dib:&nbsp;El&nbsp;objeto&nbsp;de&nbsp;la&nbsp;clase&nbsp;<a href="#Dibujo">Dibujo</a>&nbsp;que&nbsp;representa&nbsp;la&nbsp;ventana<br>
+&nbsp;&nbsp;&nbsp;&nbsp;puntos:&nbsp;una&nbsp;lista&nbsp;de&nbsp;puntos&nbsp;con&nbsp;las&nbsp;coordenadas&nbsp;del&nbsp;polígono<br>
+&nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;El&nbsp;color&nbsp;del&nbsp;polígono.&nbsp;Ejemplo&nbsp;"red",&nbsp;"dark&nbsp;green"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;abierto:&nbsp;Determina&nbsp;si&nbsp;el&nbsp;polígono&nbsp;es&nbsp;abierto&nbsp;o&nbsp;cerrado</span></dd></dl>
+
+<hr>
+Methods inherited from <a href="dibujo.html#Figura">Figura</a>:<br>
+<dl><dt><a name="Poligono-borra"><strong>borra</strong></a>(self)</dt><dd><span class="code">Borra&nbsp;la&nbsp;figura&nbsp;del&nbsp;dibujo</span></dd></dl>
+
+<dl><dt><a name="Poligono-coloca"><strong>coloca</strong></a>(self, c_x: int, c_y: int)</dt><dd><span class="code">Coloca&nbsp;la&nbsp;figura&nbsp;en&nbsp;las&nbsp;coordenadas&nbsp;indicadas<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;c_x:&nbsp;Coordenada&nbsp;x&nbsp;donde&nbsp;se&nbsp;coloca&nbsp;el&nbsp;centro&nbsp;de&nbsp;la&nbsp;figura<br>
+&nbsp;&nbsp;&nbsp;&nbsp;c_y:&nbsp;Coordenada&nbsp;y&nbsp;donde&nbsp;se&nbsp;coloca&nbsp;el&nbsp;centro&nbsp;de&nbsp;la&nbsp;figura</span></dd></dl>
+
+<dl><dt><a name="Poligono-get_canvas"><strong>get_canvas</strong></a>(self)</dt><dd><span class="code">Obtener&nbsp;el&nbsp;lienzo&nbsp;interno&nbsp;de&nbsp;dibujo</span></dd></dl>
+
+<dl><dt><a name="Poligono-mueve"><strong>mueve</strong></a>(self, delta_x: int, delta_y: int)</dt><dd><span class="code">Mueve&nbsp;la&nbsp;figura&nbsp;en&nbsp;sentido&nbsp;horizontal&nbsp;y&nbsp;vertical<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;delta_x:&nbsp;Píxeles&nbsp;a&nbsp;mover&nbsp;en&nbsp;sentido&nbsp;horizontal<br>
+&nbsp;&nbsp;&nbsp;&nbsp;delta_y:&nbsp;Píxeles&nbsp;a&nbsp;mover&nbsp;en&nbsp;sentido&nbsp;vertical</span></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="dibujo.html#Figura">Figura</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+</td></tr></table> <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="Rectangulo">class <strong>Rectangulo</strong></a>(<a href="dibujo.html#Figura">Figura</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#Rectangulo">Rectangulo</a>(dib:&nbsp;dibujo.<a href="#Dibujo">Dibujo</a>,&nbsp;xmin:&nbsp;int,&nbsp;ymin:&nbsp;int,&nbsp;xmax:&nbsp;int,&nbsp;ymax:&nbsp;int,&nbsp;color:&nbsp;str)<br>
+&nbsp;<br>
+Define&nbsp;un&nbsp;rectángulo&nbsp;para&nbsp;dibujar&nbsp;en&nbsp;un&nbsp;objeto&nbsp;de&nbsp;la&nbsp;clase&nbsp;<a href="#Dibujo">Dibujo</a><br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt>Method resolution order:</dt>
+<dd><a href="dibujo.html#Rectangulo">Rectangulo</a></dd>
+<dd><a href="dibujo.html#Figura">Figura</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Rectangulo-__init__"><strong>__init__</strong></a>(self, dib: dibujo.Dibujo, xmin: int, ymin: int, xmax: int, ymax: int, color: str)</dt><dd><span class="code">Crea&nbsp;el&nbsp;rectángulo&nbsp;de&nbsp;esquinas&nbsp;situadas&nbsp;en&nbsp;(xmin,&nbsp;ymin)&nbsp;y&nbsp;(xmax,&nbsp;ymax)<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dib:&nbsp;El&nbsp;objeto&nbsp;de&nbsp;la&nbsp;clase&nbsp;<a href="#Dibujo">Dibujo</a>&nbsp;que&nbsp;representa&nbsp;la&nbsp;ventana<br>
+&nbsp;&nbsp;&nbsp;&nbsp;xmin:&nbsp;Coordenada&nbsp;x&nbsp;de&nbsp;la&nbsp;esquina&nbsp;superior&nbsp;izquierda&nbsp;del&nbsp;rectángulo<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ymin:&nbsp;Coordenada&nbsp;y&nbsp;de&nbsp;la&nbsp;esquina&nbsp;superior&nbsp;izquierda&nbsp;del&nbsp;rectángulo<br>
+&nbsp;&nbsp;&nbsp;&nbsp;xmax:&nbsp;Coordenada&nbsp;x&nbsp;de&nbsp;la&nbsp;esquina&nbsp;inferior&nbsp;derecha&nbsp;del&nbsp;rectángulo<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ymax:&nbsp;Coordenada&nbsp;y&nbsp;de&nbsp;la&nbsp;esquina&nbsp;inferior&nbsp;derecha&nbsp;del&nbsp;rectángulo<br>
+&nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;El&nbsp;color&nbsp;de&nbsp;la&nbsp;línea.&nbsp;Ejemplo&nbsp;"red",&nbsp;"dark&nbsp;green"</span></dd></dl>
+
+<hr>
+Methods inherited from <a href="dibujo.html#Figura">Figura</a>:<br>
+<dl><dt><a name="Rectangulo-borra"><strong>borra</strong></a>(self)</dt><dd><span class="code">Borra&nbsp;la&nbsp;figura&nbsp;del&nbsp;dibujo</span></dd></dl>
+
+<dl><dt><a name="Rectangulo-coloca"><strong>coloca</strong></a>(self, c_x: int, c_y: int)</dt><dd><span class="code">Coloca&nbsp;la&nbsp;figura&nbsp;en&nbsp;las&nbsp;coordenadas&nbsp;indicadas<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;c_x:&nbsp;Coordenada&nbsp;x&nbsp;donde&nbsp;se&nbsp;coloca&nbsp;el&nbsp;centro&nbsp;de&nbsp;la&nbsp;figura<br>
+&nbsp;&nbsp;&nbsp;&nbsp;c_y:&nbsp;Coordenada&nbsp;y&nbsp;donde&nbsp;se&nbsp;coloca&nbsp;el&nbsp;centro&nbsp;de&nbsp;la&nbsp;figura</span></dd></dl>
+
+<dl><dt><a name="Rectangulo-get_canvas"><strong>get_canvas</strong></a>(self)</dt><dd><span class="code">Obtener&nbsp;el&nbsp;lienzo&nbsp;interno&nbsp;de&nbsp;dibujo</span></dd></dl>
+
+<dl><dt><a name="Rectangulo-mueve"><strong>mueve</strong></a>(self, delta_x: int, delta_y: int)</dt><dd><span class="code">Mueve&nbsp;la&nbsp;figura&nbsp;en&nbsp;sentido&nbsp;horizontal&nbsp;y&nbsp;vertical<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;delta_x:&nbsp;Píxeles&nbsp;a&nbsp;mover&nbsp;en&nbsp;sentido&nbsp;horizontal<br>
+&nbsp;&nbsp;&nbsp;&nbsp;delta_y:&nbsp;Píxeles&nbsp;a&nbsp;mover&nbsp;en&nbsp;sentido&nbsp;vertical</span></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="dibujo.html#Figura">Figura</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+</td></tr></table> <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="Texto">class <strong>Texto</strong></a>(<a href="dibujo.html#Figura">Figura</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#Texto">Texto</a>(dib:&nbsp;dibujo.<a href="#Dibujo">Dibujo</a>,&nbsp;pos_x:&nbsp;int,&nbsp;pos_y:&nbsp;int,&nbsp;texto:&nbsp;str,&nbsp;color:&nbsp;str,&nbsp;size:&nbsp;int&nbsp;=&nbsp;14)<br>
+&nbsp;<br>
+Define&nbsp;un&nbsp;texto&nbsp;para&nbsp;representar&nbsp;en&nbsp;un&nbsp;objeto&nbsp;de&nbsp;la&nbsp;clase&nbsp;<a href="#Dibujo">Dibujo</a><br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt>Method resolution order:</dt>
+<dd><a href="dibujo.html#Texto">Texto</a></dd>
+<dd><a href="dibujo.html#Figura">Figura</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Texto-__init__"><strong>__init__</strong></a>(self, dib: dibujo.Dibujo, pos_x: int, pos_y: int, texto: str, color: str, size: int = 14)</dt><dd><span class="code">Crea&nbsp;el&nbsp;texto&nbsp;situado&nbsp;en&nbsp;la&nbsp;posición&nbsp;indicada<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dib:&nbsp;El&nbsp;objeto&nbsp;de&nbsp;la&nbsp;clase&nbsp;<a href="#Dibujo">Dibujo</a>&nbsp;que&nbsp;representa&nbsp;la&nbsp;ventana<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pos_x:&nbsp;Coordenada&nbsp;x&nbsp;del&nbsp;centro&nbsp;del&nbsp;texto<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pos_y:&nbsp;Coordenada&nbsp;y&nbsp;del&nbsp;centro&nbsp;del&nbsp;texto<br>
+&nbsp;&nbsp;&nbsp;&nbsp;texto:&nbsp;El&nbsp;texto&nbsp;a&nbsp;representar<br>
+&nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;El&nbsp;color&nbsp;de&nbsp;la&nbsp;línea.&nbsp;Ejemplo&nbsp;"red",&nbsp;"dark&nbsp;green"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;size:&nbsp;El&nbsp;tamaño&nbsp;de&nbsp;la&nbsp;letra</span></dd></dl>
+
+<hr>
+Methods inherited from <a href="dibujo.html#Figura">Figura</a>:<br>
+<dl><dt><a name="Texto-borra"><strong>borra</strong></a>(self)</dt><dd><span class="code">Borra&nbsp;la&nbsp;figura&nbsp;del&nbsp;dibujo</span></dd></dl>
+
+<dl><dt><a name="Texto-coloca"><strong>coloca</strong></a>(self, c_x: int, c_y: int)</dt><dd><span class="code">Coloca&nbsp;la&nbsp;figura&nbsp;en&nbsp;las&nbsp;coordenadas&nbsp;indicadas<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;c_x:&nbsp;Coordenada&nbsp;x&nbsp;donde&nbsp;se&nbsp;coloca&nbsp;el&nbsp;centro&nbsp;de&nbsp;la&nbsp;figura<br>
+&nbsp;&nbsp;&nbsp;&nbsp;c_y:&nbsp;Coordenada&nbsp;y&nbsp;donde&nbsp;se&nbsp;coloca&nbsp;el&nbsp;centro&nbsp;de&nbsp;la&nbsp;figura</span></dd></dl>
+
+<dl><dt><a name="Texto-get_canvas"><strong>get_canvas</strong></a>(self)</dt><dd><span class="code">Obtener&nbsp;el&nbsp;lienzo&nbsp;interno&nbsp;de&nbsp;dibujo</span></dd></dl>
+
+<dl><dt><a name="Texto-mueve"><strong>mueve</strong></a>(self, delta_x: int, delta_y: int)</dt><dd><span class="code">Mueve&nbsp;la&nbsp;figura&nbsp;en&nbsp;sentido&nbsp;horizontal&nbsp;y&nbsp;vertical<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;delta_x:&nbsp;Píxeles&nbsp;a&nbsp;mover&nbsp;en&nbsp;sentido&nbsp;horizontal<br>
+&nbsp;&nbsp;&nbsp;&nbsp;delta_y:&nbsp;Píxeles&nbsp;a&nbsp;mover&nbsp;en&nbsp;sentido&nbsp;vertical</span></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="dibujo.html#Figura">Figura</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</span></dd>
+</dl>
+</td></tr></table></td></tr></table>
+</body></html>
