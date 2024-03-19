@@ -1,4 +1,16 @@
 def procesar_tupla(tupla: tuple[str, ...], palabra: str) -> tuple[int, str, str, bool]:
+    """
+    Función que procesa una tupla de palabras y una palabra suelta, 
+    devolviendo la longitud de la tupla, la primera y última palabra 
+    de la tupla y si la palabra suelta está contenida en la tupla.
+    Args:
+        tupla (tuple[str, ...]): Tupla de palabras
+        palabra (str): Palabra suelta
+
+    Returns:
+        tuple[int, str, str, bool]: Longitud de la tupla, primera y última palabra y 
+        si la palabra suelta está contenida
+    """
     num_palabras = len(tupla)
     primera_palabra = tupla[0]
     ultima_palabra = tupla[-1]
