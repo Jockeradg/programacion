@@ -6,16 +6,16 @@ def main():
     print("Longitud de la lista:", len(planetas))
 
     # Crear una sublista con los planetas rocosos
-    planetas_rocosos = planetas[:4]
+    planetas_rocosos:list[str] = planetas[:4]
 
     # Cambiar los nombres de los planetas gaseosos a mayúsculas
     planetas[-4:] = [planeta.upper() for planeta in planetas[-4:]]
 
     # Verificar si "SATURNO" pertenece a la lista
-    saturno_pertenece = "SATURNO" in planetas
+    saturno_pertenece:bool = "SATURNO" in planetas
 
     # Verificar si "plutón" pertenece a la lista
-    pluton_pertenece = "plutón" in planetas
+    pluton_pertenece:bool = "plutón" in planetas
 
     # Mostrar la lista original, la sublista y las variables booleanas
     print("Lista original:", planetas)
