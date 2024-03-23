@@ -18,6 +18,7 @@ def main():
     Returns:
         None
     """
+    
     # Crear la ventana
     lienzo = Dibujo("Título", 900, 800)
     
