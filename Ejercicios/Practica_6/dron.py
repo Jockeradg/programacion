@@ -1,3 +1,12 @@
+# -*- coding: utf-8 -*-
+"""
+Descripción: Este es un programa que simula un dron chocando con un edificio.
+
+@autor: Adriel Diego
+@date: 23-03-2024
+
+"""
+
 from fundamentos.dibujo import Dibujo, Imagen
 
 def main():
