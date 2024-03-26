@@ -31,7 +31,7 @@ class Hipoteca:
             (float): Devuelve el pago mensual de la hipoteca.
         """
         tipo_interes_mensual = self.interes_anual / 12
-        return (self.capital * tipo_interes_mensual) / (1 - (1 + tipo_interes_mensual) ** -self.__numero_mensualidades)
+        return self.__capital * tipo_interes_mensual / (1 - (1 + tipo_interes_mensual) ** -self.__numero_mensualidades)
         
 
 # Example usage
