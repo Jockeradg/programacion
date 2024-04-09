@@ -83,7 +83,7 @@ class ParticulaCargada:
         d: float = 1/2*self.__fuerza/self.__masa
 
         if tiempo < t_0:
-            return self.pos_ini() - d*t**2
+            return self.pos_ini() - d*tiempo**2
         
         elif tiempo < 3*t_0:
             return -v_0*delta_t + d*delta_t**2
