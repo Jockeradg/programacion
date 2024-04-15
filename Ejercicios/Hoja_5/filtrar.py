@@ -24,7 +24,7 @@ def main():
     """
     Funcion principal que ejecuta el programa.
     """
-    numeros = (1, 2, 3, 4, 5)
+    numeros:tuple = (1, 2, 3, 4, 5)
     logaritmos = calcular_logaritmos(numeros)
     print(logaritmos)
 
