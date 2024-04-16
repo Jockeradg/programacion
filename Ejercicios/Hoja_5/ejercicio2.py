@@ -1,4 +1,4 @@
-def indice_valor_mas_cercano(lista):
+def indice_valor_mas_cercano(lista:list[float])->int:
     promedio = sum(lista) / len(lista)
     diferencia_minima = abs(lista[0] - promedio)
     indice_minimo = 0
