@@ -1,16 +1,7 @@
-import math
-
 def indice_valor_mas_cercano(lista):
     promedio = sum(lista) / len(lista)
     diferencia_minima = abs(lista[0] - promedio)
-    infinito = math.inf
-    for i in lista:
-        if i < infinito:
-            infinito = i
-            indice_minimo = i
-        else:
-            infinito = infinito
-            indice_minimo = i
+    indice_minimo = 0
 
     for i in range(1, len(lista)):
         diferencia_actual = abs(lista[i] - promedio)
