@@ -8,7 +8,7 @@ Descripción: Programa que calcula el logaritmo de una tupla de números.
 """
 import math
 
-def calcular_logaritmos(tupla)->tuple:
+def calcular_logaritmos(tupla:tuple[float,...])->tuple[float,...]:
     """
     Funcion que calcula el logaritmo de una tupla de numeros.
 
@@ -16,7 +16,7 @@ def calcular_logaritmos(tupla)->tuple:
         tupla (tuple): Tupla de 5 números reales
 
     Returns:
-        tupla: Devuelve la tupla
+        Tupla con los logaritmos de los números de la tupla.
     """
     return tuple([math.log(num) for num in tupla])
 
@@ -24,9 +24,9 @@ def main():
     """
     Funcion principal que ejecuta el programa.
     """
-    numeros:tuple = (1, 2, 3, 4, 5)
+    numeros:tuple[float,...] = (1, 2, 3, 4, 5)
     logaritmos = calcular_logaritmos(numeros)
-    print(logaritmos)
+    print(f"Los logaritmos son: {logaritmos}")
 
 if __name__ == "__main__":
     main()
