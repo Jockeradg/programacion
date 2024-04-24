@@ -1,7 +1,22 @@
-def calcular_integral(tupla, D):
-    integral = 0
+import math
+from typing import Final
+
+DELTA: Final[float] = 0.1
+
+def calcular_integral(tupla:tuple[float,...])->float:
+    """
+    Calcula la integral definida de una lista de números reales. La integral se calcula mediante la regla del trapecio.
+
+
+    Args:
+        tupla (tuple[float,...]): Tupla de números reales. Contiene números reales.
+
+    Returns:
+        float: La integral definida de la lista de números reales.
+    """
+    integral: float = 0
     for i in range(len(tupla) - 1):
-        integral += (tupla[i] + tupla[i+1]) * D / 2
+        integral += (tupla[i] + tupla[i+1]) * DELTA / 2
     return integral
 
 def main():
