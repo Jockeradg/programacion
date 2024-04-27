@@ -233,20 +233,16 @@ class Radar:
         return Posicion(cls.__y, cls.__x)
 
 class Trayectoria:
-    lista: list[Posicion] = []
-    id_avion: int = 0
-    ventana: Pantalla = Pantalla()
-
     def __init__(self, id_avion: int):
-        self.id_avion = id_avion
-        self.ventana = Pantalla()
+        self.__id_avion = id_avion
+        self.__ventana = Pantalla()
         self.__lista = []
 
     def muestra_avion(self):
         for punto in self.__lista:
-            self.ventana.pinta_punto_tray(punto)
+            self.__ventana.pinta_punto_tray(punto)
         ultima_posicion = self.__lista[-1]
-        self.ventana.pinta_avion(self.id_avion, ultima_posicion)
+        self.__ventana.pinta_avion(self.__id_avion, ultima_posicion)
 
     def pasa_cerca(self, p: Posicion, dist: float)->bool:
         return next((True for punto in self.__lista if punto.distancia(p) < dist), False)
@@ -254,18 +250,18 @@ class Trayectoria:
     def recoge_posiciones(self, n:int):
         anadidos: int = 0
         while anadidos < n:
-            p: Posicion | None = Radar.lee_posicion_actual(self.id_avion)
+            p: Posicion | None = Radar.lee_posicion_actual(self.__id_avion)
             if p is None:
-                self.ventana.muestra_alarma("No se pudo obtener la posición del avión")
+                self.__ventana.muestra_alarma("No se pudo obtener la posición del avión")
             else:
                 self.__lista.append(p)
                 anadidos += 1
                 
-    #def estan_dentro_rectangulo(self, esquina_sup_dch:Posicion,esquina_inf_izq:Posicion)->list[Posicion]:
-        #return [punto for punto in self.__lista if esquina_inf_izq.get_lat() <= punto.get_lat() <= esquina_sup_dch.get_lat() and esquina_inf_izq.get_lng() <= punto.get_lng() <= esquina_sup_dch.get_lng()]
+    def estan_dentro_rectangulo(self, esquina_sup_dch:Posicion,esquina_inf_izq:Posicion)->list[Posicion]:
+        return [punto for punto in self.__lista if esquina_inf_izq.get_lat() <= punto.get_lat() <= esquina_sup_dch.get_lat() and esquina_inf_izq.get_lng() <= punto.get_lng() <= esquina_sup_dch.get_lng()]
     
     def destruye_ventana(self):
-        self.ventana.destruye_pantalla()
+        self.__ventana.destruye_pantalla()
         
 
 def main():
@@ -273,6 +269,7 @@ def main():
     avion1.recoge_posiciones(200)
     avion1.muestra_avion()
     p = Posicion(57,57)
+    print("Posición con la que se comprueba la cercanía: (57.00, 57.00)")
     if avion1.pasa_cerca(p, 200):
         print("La trayectoria pasa cerca de la posición de 200 km.")
     else:
@@ -283,7 +280,19 @@ def main():
     else:
         print("La trayectoria no pasa cerca de la posición de 1 km.")
     
+    
     avion1.destruye_ventana()
+    
+    a = Posicion(60,60)
+    a1 = Posicion(50,50)
+    print("Posiciones en las que el avión esta dentro de un rectangulo.")
+    for pos in avion1.estan_dentro_rectangulo(a,a1):
+        print(pos, end=", ")
+    
+    
+    a = Posicion(10,10)
+    a1 = Posicion(0,0)
+    print(f"Posiciones en las que el avión esta dentro de un rectangulo {str(avion1.estan_dentro_rectangulo(a,a1))}")
 
 if __name__ == "__main__":
     main()
