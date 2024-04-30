@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-TODO: documentación del módulo
+El programa simula la posición de un avión en el espacio aéreo y muestra su trayectoria en una ventana gráfica.
+Compara si la trayectoria del avión pasa cerca de una posición dada y si está dentro de un rectángulo.
 
-TODO @author:
-TODO @date:
+
+@author: Adriel Diego González
+@date: 27/04/2024
 """
 
 from __future__ import annotations
@@ -233,21 +235,58 @@ class Radar:
         return Posicion(cls.__y, cls.__x)
 
 class Trayectoria:
+    """
+    Clase que representa la trayectoria de un avión.
+
+    Class Attributes:
+        __id_avion: identificador del avión
+        __ventana: pantalla para mostrar la trayectoria
+        __lista: lista de posiciones del avión
+
+    """
     def __init__(self, id_avion: int):
+        """
+        Inicializa una nueva instancia de la clase Trayectoria.
+
+        Args:
+            __id_avion (int): identificador del avión
+            __ventana (Pantalla): pantalla para mostrar la trayectoria
+            __lista (list[Posicion]): lista de posiciones del avión
+
+        """
         self.__id_avion = id_avion
         self.__ventana = Pantalla()
         self.__lista = []
 
     def muestra_avion(self):
+        """
+        Muestra la trayectoria del avión en la pantalla.
+        """
         for punto in self.__lista:
             self.__ventana.pinta_punto_tray(punto)
         ultima_posicion = self.__lista[-1]
         self.__ventana.pinta_avion(self.__id_avion, ultima_posicion)
 
     def pasa_cerca(self, p: Posicion, dist: float)->bool:
+        """
+        Comprueba si la trayectoria pasa cerca de una posición dada.
+
+        Args:
+            p (Posicion): La posición a comprobar.
+            dist (float): La distancia en kilómetros a la que se considera
+
+        Returns:
+            bool: True si la trayectoria pasa cerca de la posición dada
+        """
         return next((True for punto in self.__lista if punto.distancia(p) < dist), False)
     
     def recoge_posiciones(self, n:int):
+        """
+        Recoge n posiciones del avión y las añade a la lista de posiciones.
+
+        Args:
+            n (int): Número de posiciones a recoger.
+        """
         anadidos: int = 0
         while anadidos < n:
             p: Posicion | None = Radar.lee_posicion_actual(self.__id_avion)
@@ -258,17 +297,37 @@ class Trayectoria:
                 anadidos += 1
                 
     def estan_dentro_rectangulo(self, esquina_sup_dch:Posicion,esquina_inf_izq:Posicion)->list[Posicion]:
+        """
+        Devuelve una lista con las posiciones del avión que están dentro de un rectángulo
+
+        Args:
+            esquina_sup_dch (Posicion): La esquina superior derecha del rectángulo
+            esquina_inf_izq (Posicion): La esquina inferior izquierda del rectángulo
+
+        Returns:
+            list[Posicion]: Lista con las posiciones del avión que están dentro del rectángulo
+        """
         return [punto for punto in self.__lista if esquina_inf_izq.get_lat() <= punto.get_lat() <= esquina_sup_dch.get_lat() and esquina_inf_izq.get_lng() <= punto.get_lng() <= esquina_sup_dch.get_lng()]
     
     def destruye_ventana(self):
+        """
+        Destruye la ventana en la que se representa la trayectoria
+        """
         self.__ventana.destruye_pantalla()
         
 
 def main():
+    """
+    Función principal del programa.
+    """
+
+    #Creo el objeto avion1 de la clase Trayectoria
     avion1 = Trayectoria(8834)
     avion1.recoge_posiciones(200)
     avion1.muestra_avion()
     p = Posicion(57,57)
+
+    #Compruebo si la trayectoria pasa cerca de la posición p y 200 km y 1 km
     print("Posición con la que se comprueba la cercanía: (57.00, 57.00)")
     if avion1.pasa_cerca(p, 200):
         print("La trayectoria pasa cerca de la posición de 200 km.")
@@ -280,19 +339,22 @@ def main():
     else:
         print("La trayectoria no pasa cerca de la posición de 1 km.")
     
-    
+    #Destruyo la ventana en la que se representa la trayectoria
     avion1.destruye_ventana()
     
+    #Creo un nuevo objeto avion1 de la clase Trayectoria
     a = Posicion(60,60)
     a1 = Posicion(50,50)
     print("Posiciones en las que el avión esta dentro de un rectangulo.")
     for pos in avion1.estan_dentro_rectangulo(a,a1):
-        print(pos, end=", ")
+        print(pos, sep=", ")
     
-    
+    #Creo un nuevo objeto avion1 de la clase Trayectoria
     a = Posicion(10,10)
     a1 = Posicion(0,0)
-    print(f"Posiciones en las que el avión esta dentro de un rectangulo {str(avion1.estan_dentro_rectangulo(a,a1))}")
+    print("Posiciones en las que el avión esta dentro de un rectangulo.")
+    for pos in avion1.estan_dentro_rectangulo(a,a1):
+        print(pos, sep=", ")
 
 if __name__ == "__main__":
     main()
