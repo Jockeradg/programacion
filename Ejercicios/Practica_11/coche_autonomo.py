@@ -261,7 +261,7 @@ class Coche:
         """
         print("Id\tt_alcance\tt_rebase\tmargen_alcance\tmargen_rebase")
         for obs in self.__lista:
-            print(f"{obs.get_id()}\t{obs.t_alcance()}\t{obs.t_rebase()}\t{obs.margen_alcance()}\t{obs.margen_rebase()}")
+            print(f"{obs.get_id(self.__v_c)}\t{obs.t_alcance(self.__v_c,self.__L)}\t{obs.t_rebase(self.__v_c,self.__L)}\t{obs.margen_alcance(self.__v_c)}\t{obs.margen_rebase(self.__v_c,self.__L)}")
 
     def poco_margen_alcance(self) -> Obstaculo:
         """
@@ -390,9 +390,12 @@ def main():
         for i in a:
                 print(f"Obstaculo con id: {i.get_id()}")
                 coche.dibujo_esquematico()
+        coche.dibujo_esquematico()
 
     except NoEncontradoError as error:
         coche.dibujo_esquematico()
+    
+    coche.informe()
 
 if __name__ == "__main__":
     main()
