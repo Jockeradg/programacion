@@ -8,6 +8,8 @@ TODO @date:
 """
 
 # TODO: otros imports
+
+from typing import Final
 import math
 import sys
 from fundamentos.dibujo import Dibujo, Ovalo, Texto, Rectangulo
@@ -179,7 +181,11 @@ class Coche:
             nombre_fichero (str): Nombre del archivo de texto del que se leen
                                   los datos de los obstáculos.
         """
-        # TODO: constructor
+        self.__lista: list[Obstaculo] = []
+        self.__v_c: float = v_c
+        self.__A: Final[float] = semi_ancho
+        self.__L: Final[float] = lng
+        self.__leer_obstaculos(nombre_fichero)
 
     def __leer_obstaculos(self, filename: str):
         """
@@ -221,8 +227,33 @@ class Coche:
         Returns:
             list[Obstaculo]: Lista de obstáculos que pueden chocar.
         """
+        
+        LIMITE: Final[float] = 30.0  # s
+        # lista para meter los obstáculos que pueden chocar
+        posibles_choques: list[Obstaculo] = []
 
-        # TODO: posibles_choques()
+        # Recorrido para obtener los obstáculos que pueden chocar
+        for obs in self.__lista:
+            choca: bool = False
+            # consideramos que puede haber choque si los tiempos
+            # de alcance y rebase están entre 0 y LIMITE
+            if 0 <= obs.t_alcance(self.__v_c) <= LIMITE and 0 <= obs.t_rebase(self.__v_c, self.__L) <= LIMITE:
+                # El choque se produce si se da alguna de estas tres circunstancias:
+                if abs(obs.margen_alcance(self.__v_c)) <= obs.get_radio() + self.__A:
+                    choca = True
+                elif abs(obs.margen_rebase(self.__v_c, self.__L)) <= obs.get_radio() + self.__A:
+                    choca = True
+                elif obs.margen_alcance(self.__v_c) * obs.margen_rebase(self.__v_c, self.__L) < 0:
+                    # el margen de alcance y el de rebase tienen distinto signo
+                    choca = True
+
+            # si choca lo metemos en la lista
+            if choca:
+                posibles_choques.append(obs)
+
+        # Retornar el resultado
+        return posibles_choques
+
 
     def informe(self):
         """
@@ -242,7 +273,10 @@ class Coche:
             NoEncontradoError: Si no se encuentra ningún obstáculo con poco
                                margen de alcance.
         """
-        # TODO: poco_margen_alcance()
+        elemento = next((obs for obs in self.__lista if abs(obs.margen_alcance(self.__v_c)) <= obs.get_radio() + self.__A), None)
+        if elemento is not None:
+            return elemento
+        raise NoEncontradoError("No se encontró ningún obstáculo con poco margen de alcance")
 
     @staticmethod
     def __coord_x(c_x: float, escala: float, size: float) -> int:
@@ -344,4 +378,22 @@ def main():
     """
     Programa que prueba los metodos de la clase Coche
     """
-    # TODO: main()
+    coche = Coche(18.5, 1.1, 4.5, "obstaculos.txt")
+
+    print(f"Los obstáculos que pueden chocar son: {coche.posibles_choques() if coche.posibles_choques() else 'ninguno'}")
+
+    try:
+        coche.posibles_choques()
+        print(f"El primer obstáculo con poco margen de alcance es el {coche.poco_margen_alcance().get_id()}")
+        print(f"Los obstáculos son:")
+        a = coche.posibles_choques()
+        for i in a:
+            for j in range(len(a)):
+                print(f"Obstaculo con id: {a[j].get_id()}")
+                coche.dibujo_esquematico()
+
+    except NoEncontradoError as error:
+        coche.dibujo_esquematico()
+
+if __name__ == "__main__":
+    main()
