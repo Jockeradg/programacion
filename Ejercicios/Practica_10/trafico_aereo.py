@@ -248,7 +248,7 @@ class Trayectoria:
         """
         Inicializa una nueva instancia de la clase Trayectoria.
 
-        Args:
+        Args:   
             __id_avion (int): identificador del avión
             __ventana (Pantalla): pantalla para mostrar la trayectoria
             __lista (list[Posicion]): lista de posiciones del avión
