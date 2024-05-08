@@ -259,7 +259,9 @@ class Coche:
         """
         Pone en pantalla un informe de todos los obstáculos.
         """
-        # TODO: Parte avanzada: informe()
+        print("Id\tt_alcance\tt_rebase\tmargen_alcance\tmargen_rebase")
+        for obs in self.__lista:
+            print(f"{obs.get_id()}\t{obs.t_alcance()}\t{obs.t_rebase()}\t{obs.margen_alcance()}\t{obs.margen_rebase()}")
 
     def poco_margen_alcance(self) -> Obstaculo:
         """
@@ -380,18 +382,17 @@ def main():
     """
     coche = Coche(18.5, 1.1, 4.5, "obstaculos.txt")
 
-
     try:
         coche.posibles_choques()
         print(f"El primer obstáculo con poco margen de alcance es el {coche.poco_margen_alcance().get_id()}")
-        print("Los obstáculos son:")
+        print(f"Los obstáculos son:")
         a = coche.posibles_choques()
         for i in a:
                 print(f"Obstaculo con id: {i.get_id()}")
-                
+                coche.dibujo_esquematico()
+
     except NoEncontradoError as error:
         coche.dibujo_esquematico()
-    coche.dibujo_esquematico()
 
 if __name__ == "__main__":
     main()
