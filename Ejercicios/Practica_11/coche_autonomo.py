@@ -3,11 +3,10 @@
 Contiene clases y un programa para simular el funcionamiento de un sistema de
 evitación de colisiones en un coche autónomo
 
-TODO @author:
-TODO @date:
+@author: Adriel Diego
+@date: 09/05/2024
 """
 
-# TODO: otros imports
 
 from typing import Final
 import math
@@ -181,11 +180,11 @@ class Coche:
             nombre_fichero (str): Nombre del archivo de texto del que se leen
                                   los datos de los obstáculos.
         """
-        self.__lista: list[Obstaculo] = []
-        self.__v_c: float = v_c
-        self.__A: Final[float] = semi_ancho
-        self.__L: Final[float] = lng
-        self.__leer_obstaculos(nombre_fichero)
+        self.__lista: list[Obstaculo] = [] # lista de obstaculos
+        self.__v_c: float = v_c # velocidad del coche
+        self.__A: Final[float] = semi_ancho # semianchura del coche
+        self.__L: Final[float] = lng # longitud del coche
+        self.__leer_obstaculos(nombre_fichero) # leer los obstaculos
 
     def __leer_obstaculos(self, filename: str):
         """
@@ -261,7 +260,10 @@ class Coche:
         """
         print("Id\tt_alcance\tt_rebase\tmargen_alcance\tmargen_rebase")
         for obs in self.__lista:
-            print(f"{obs.get_id(self.__v_c)}\t{obs.t_alcance(self.__v_c,self.__L)}\t{obs.t_rebase(self.__v_c,self.__L)}\t{obs.margen_alcance(self.__v_c)}\t{obs.margen_rebase(self.__v_c,self.__L)}")
+            print(f"{obs.get_id(self.__v_c)}\t{obs.t_alcance(self.__v_c,self.__L)} \
+                  \t{obs.t_rebase(self.__v_c,self.__L)} \
+                  \t{obs.margen_alcance(self.__v_c)} \
+                  \t{obs.margen_rebase(self.__v_c,self.__L)}")
 
     def poco_margen_alcance(self) -> Obstaculo:
         """
