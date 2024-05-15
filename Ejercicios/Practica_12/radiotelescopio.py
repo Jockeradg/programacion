@@ -117,7 +117,8 @@ class Observacion:
             tiempo: el tiempo transcurrido desde el inicio de la supernova,
                     en días
         """
-        # TODO: constructor
+        self.__lista: list[ObsMonocromatica] = []
+        self.__tiempo: float = tiempo
 
     def anade(self, obs: ObsMonocromatica):
         """
@@ -159,7 +160,10 @@ class Observacion:
             con error relativo superior al indicado, o -1 si no hubiese
             ninguna.
         """
-        # TODO: indice_con_error_grande()
+        for i, obs in enumerate(self.__lista):
+            if obs.get_err_flujo() / obs.get_flujo() > error_relativo:
+                return i
+        return -1
 
     def chi_cuadrado_ponderado(self, mod: Modelo) -> float:
         """
@@ -182,7 +186,9 @@ class Observacion:
         Returns:
             Frecuencia a la que el flujo es máximo (GHz).
         """
-        # TODO: frec_flujo_max()
+        max_flujo_obs = max(obs.get_flujo() for obs in self.__lista)
+        frec_max_flujo = next(obs.get_frec() for obs in self.__lista if obs.get_flujo() == max_flujo_obs)
+        return frec_max_flujo
 
     @staticmethod
     def lee_fichero(nombre_fichero: str) -> Observacion:
@@ -194,8 +200,27 @@ class Observacion:
             IOError: El fichero no existe.
             ErrorDeFormato: El formato del fichero csv es incorrecto.
         """
-        # TODO: lee_fichero()
-
+        try:
+            with open(nombre_fichero, 'r') as fichero:
+                # Leemos el tiempo de la supernova
+                tiempo = float(fichero.readline().strip())
+                # Creamos el objeto Observacion
+                obs = Observacion(tiempo)
+                # Leemos las observaciones monocromáticas
+                for linea in fichero:
+                    campos = linea.strip().split(',')
+                    if len(campos) != 3:
+                        raise ErrorDeFormato
+                    frec = float(campos[0])
+                    flujo = float(campos[1])
+                    err_flujo = float(campos[2])
+                    obs.anade(ObsMonocromatica(frec, flujo, err_flujo))
+                return obs
+        except FileNotFoundError:
+            raise IOError
+        except ValueError:
+            raise ErrorDeFormato
+        
     def plot(self, mod: Modelo):
         """
         Dibuja una comparativa entre los valores medidos y el modelo.
@@ -249,8 +274,35 @@ def main():
     """
     Programa principal para analizar las observaciones de una supernova.
     """
-    # TODO: main()
-
+    try:
+        # a) Lee el fichero CSV llamado SN2011dh.csv
+        observacion = Observacion.lee_fichero("SN2011dh.csv")
+        
+        # b) Busca casillas con error relativo de flujo mayor que 0.5
+        indice_error_grande = observacion.indice_con_error_grande(0.5)
+        if indice_error_grande != -1:
+            print("Existe una casilla con error relativo de flujo mayor que 0.5")
+        
+        # c) Busca casillas con error relativo de flujo mayor que 0.45 y elimina
+        indice_error_mayor = observacion.indice_con_error_grande(0.45)
+        if indice_error_mayor != -1:
+            observacion.elimina(indice_error_mayor)
+            print("Se ha eliminado una casilla con error relativo de flujo mayor que 0.45")
+        
+        # d) Muestra la frecuencia a la que el flujo es máximo
+        frec_max_flujo = observacion.frec_flujo_max()
+        print(f"La frecuencia a la que el flujo es máximo es: {frec_max_flujo} GHz")
+        
+        # e) Crea un objeto de la clase Modelo
+        modelo = Modelo(7.635, 4.017, 3.0)
+        
+        # f) Muestra una gráfica comparativa
+        observacion.plot(modelo)
+        
+    except IOError:
+        print("El fichero no existe.")
+    except ErrorDeFormato:
+        print("El formato del fichero csv es incorrecto.")
 
 if __name__ == "__main__":
     main()
