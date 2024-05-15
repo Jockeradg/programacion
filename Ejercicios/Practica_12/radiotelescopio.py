@@ -207,6 +207,9 @@ class Observacion:
                 # Creamos el objeto Observacion
                 obs = Observacion(tiempo)
                 # Leemos las observaciones monocromáticas
+                for i in range(3):
+                    next(fichero)  
+                
                 for linea in fichero:
                     campos = linea.strip().split(',')
                     if len(campos) != 3:
