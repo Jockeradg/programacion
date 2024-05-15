@@ -202,14 +202,13 @@ class Observacion:
         """
         try:
             with open(nombre_fichero, 'r') as fichero:
+                for i in range(3):
+                    next(fichero)  
                 # Leemos el tiempo de la supernova
                 tiempo = float(fichero.readline().strip())
                 # Creamos el objeto Observacion
                 obs = Observacion(tiempo)
                 # Leemos las observaciones monocromáticas
-                for i in range(3):
-                    next(fichero)  
-                
                 for linea in fichero:
                     campos = linea.strip().split(',')
                     if len(campos) != 3:
