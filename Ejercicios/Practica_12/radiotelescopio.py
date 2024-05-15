@@ -177,7 +177,13 @@ class Observacion:
         Returns:
             El valor de chi cuadrado ponderado.
         """
-        # TODO: Parte avanzada: chi_cuadrado_ponderado()
+        chi_cuadrado = 0.0
+        for obs in self.__lista:
+            medida_real = obs.get_flujo()
+            valor_modelo = mod.flujo_modelo(obs.get_frec())
+            error_flujo = obs.get_err_flujo()
+            chi_cuadrado += ((medida_real - valor_modelo) / error_flujo) ** 2
+        return chi_cuadrado
 
     def frec_flujo_max(self) -> float:
         """
@@ -287,8 +293,10 @@ def main():
         # c) Busca casillas con error relativo de flujo mayor que 0.45 y elimina
         indice_error_mayor = observacion.indice_con_error_grande(0.45)
         print("Casilla con error relativo de flujo mayor que 0.45: ", indice_error_mayor)
-        if indice_error_mayor != -1:
+        try:
             observacion.elimina(indice_error_mayor)
+        except:
+            print("No se ha podido eliminar la observación.")
         
         # d) Muestra la frecuencia a la que el flujo es máximo
         frec_max_flujo = observacion.frec_flujo_max()
@@ -304,6 +312,10 @@ def main():
         print("El fichero no existe.")
     except ErrorDeFormato:
         print("El formato del fichero csv es incorrecto.")
+    
+    # g) Calcula el valor de chi cuadrado ponderado
+    chi_cuadrado = observacion.chi_cuadrado_ponderado(modelo)
+    print(f"El valor de chi cuadrado ponderado es: {chi_cuadrado}")
 
 if __name__ == "__main__":
     main()
