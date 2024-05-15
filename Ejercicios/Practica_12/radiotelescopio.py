@@ -315,7 +315,7 @@ def main():
     
     # g) Calcula el valor de chi cuadrado ponderado
     chi_cuadrado = observacion.chi_cuadrado_ponderado(modelo)
-    print(f"El valor de chi cuadrado ponderado es: {chi_cuadrado}")
+    print(f"El valor de chi cuadrado ponderado es: {chi_cuadrado:.3f}")
 
 if __name__ == "__main__":
     main()
