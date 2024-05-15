@@ -187,7 +187,7 @@ class Observacion:
             Frecuencia a la que el flujo es máximo (GHz).
         """
         max_flujo_obs = max(obs.get_flujo() for obs in self.__lista)
-        frec_max_flujo = next((obs.get_frec() for obs in self.__lista if obs.get_flujo() == max_flujo_obs),None)
+        frec_max_flujo = next(obs.get_frec() for obs in self.__lista if obs.get_flujo() == max_flujo_obs)
         return frec_max_flujo
 
     @staticmethod
@@ -222,29 +222,7 @@ class Observacion:
             raise IOError
         except ValueError:
             raise ErrorDeFormato
-        """
-            with open(nombre_fichero, 'r') as fichero:
-                for i in range(3):
-                    next(fichero)  
-                # Leemos el tiempo de la supernova
-                tiempo = float(fichero.readline().strip())
-                # Creamos el objeto Observacion
-                obs = Observacion(tiempo)
-                # Leemos las observaciones monocromáticas
-                for linea in fichero:
-                    campos = linea.strip().split(',')
-                    if len(campos) != 3:
-                        raise ErrorDeFormato
-                    frec = float(campos[0])
-                    flujo = float(campos[1])
-                    err_flujo = float(campos[2])
-                    obs.anade(ObsMonocromatica(frec, flujo, err_flujo))
-                return obs
-        except FileNotFoundError:
-            raise IOError
-        except ValueError:
-            raise ErrorDeFormato
-        """
+        
     def plot(self, mod: Modelo):
         """
         Dibuja una comparativa entre los valores medidos y el modelo.
