@@ -304,14 +304,13 @@ def main():
         
         # b) Busca casillas con error relativo de flujo mayor que 0.5
         indice_error_grande = observacion.indice_con_error_grande(0.5)
-        if indice_error_grande != -1:
-            print("Existe una casilla con error relativo de flujo mayor que 0.5")
+        print("Casilla con error relativo de flujo mayor que 0.5: ", indice_error_grande)
         
         # c) Busca casillas con error relativo de flujo mayor que 0.45 y elimina
         indice_error_mayor = observacion.indice_con_error_grande(0.45)
+        print("Casilla con error relativo de flujo mayor que 0.45: ", indice_error_mayor)
         if indice_error_mayor != -1:
             observacion.elimina(indice_error_mayor)
-            print("Se ha eliminado una casilla con error relativo de flujo mayor que 0.45")
         
         # d) Muestra la frecuencia a la que el flujo es máximo
         frec_max_flujo = observacion.frec_flujo_max()
