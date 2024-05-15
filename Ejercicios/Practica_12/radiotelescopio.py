@@ -202,9 +202,9 @@ class Observacion:
         """
         try:
             with open(nombre_fichero, 'r') as fichero:
-                next(fichero)
-                next(fichero)
-                next(fichero)
+                for i in range(4):
+                    next(fichero)
+                
                 tiempo = float(next(fichero).split(',')[1].strip())
                 obs = Observacion(tiempo)
                 for i in range(4):
