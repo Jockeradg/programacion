@@ -1,0 +1,22 @@
+TITLE: ,Data from Krauss+ (2012)
+AUTHOR/S: ,M.I. Krauss,A.M. Soderberg,L. Chomiuk,B.A. Zauderer,A. Bruntha,M.F. Bietenholtz,R.A. Chevalier,C. Fransson,M. Rupen
+ORGANIZATION: ,"The Astrophysical Journal Letters, 2012"
+NAME OF THE EVENT: ,Super nova: SN 2011dh
+TIME (Days): ,45.3
+DISTANCE TO THE EVENT (Mpc): ,8.6
+UNCERTAINTY ON THE DISTANCE (Mpc): ,0.4
+MEASURING EQUIPMENT: ,EVLA (Perley et al. 2011)
+Freq (GHz),Flux (mJy),fluxErr (mJy)
+1.4,0.719,0.35
+1.8,1.858,0.345
+2.5,4.092,0.415
+3.5,6.188,0.4
+4.9,7.836,0.43
+6.7,6.987,0.385
+8.4,6.082,0.32
+13.5,3.79,0.315
+16,2.96,0.335
+20.5,2.493,0.485
+25,1.819,0.4
+29,1.549,0.265
+36,1.159,0.255
