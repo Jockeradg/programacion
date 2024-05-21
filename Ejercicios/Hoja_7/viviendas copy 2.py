@@ -6,7 +6,7 @@ así como métodos para trabajar con estos datos
 @author: ...
 @date: ...
 """
-
+import sys
 
 class CosteViviendas:
     """
@@ -93,7 +93,7 @@ def main():
         print(f"El coste de la vivienda en Madrid es: {coste_madrid} €")
     except NoEncontradoError:
         print("Error grave: No se encontró el coste de la vivienda en Madrid.")
-        return
+        sys.exit(1)
 
     try:
         # d) Calcula con el método correspondiente el coste de la vivienda en “Soria” y lo muestra en pantalla.

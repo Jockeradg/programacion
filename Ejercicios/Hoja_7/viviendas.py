@@ -59,14 +59,14 @@ class CosteViviendas:
         de ciudades y costes de vivienda.
 
         Args:
-                    nombre_fichero (str): Nombre del fichero a leer.
+            nombre_fichero (str): Nombre del fichero a leer.
         """
         try:
             with open(nombre_fichero, 'r') as file:
                 for line in file:
                     ciudad, coste = line.strip().split(',')
                     self.inserta(ciudad.strip(), float(coste.strip()))
-        except FileNotFoundError:
-            print(f"El fichero {nombre_fichero} no existe.")
+        except IOError:
+            print(f"Error al leer el fichero: {nombre_fichero}")
         except Exception as e:
             print(f"Error al leer el fichero: {e}")

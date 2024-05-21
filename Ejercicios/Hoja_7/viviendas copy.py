@@ -6,7 +6,7 @@ así como métodos para trabajar con estos datos
 @author: ...
 @date: ...
 """
-
+import math
 
 class CosteViviendas:
     """
@@ -90,7 +90,15 @@ def calcular_coste(self, ciudad: str) -> float:
         Raises:
             NoEncontradoError: Si ninguna ciudad de la lista coincide con el parámetro ciudad.
         """
-    for c, coste in zip(self.__ciudades, self.__costes):
-        if c == ciudad:
-            return coste
-    raise NoEncontradoError("La ciudad no se encuentra en la lista.")
+    try:
+        """
+        precio:float = next((self.__costes[i] for i,x in enumerate(self.__ciudades) if x == ciudad), math.nan)
+        if math.isnan(precio):
+            raise NoEncontradoError("La ciudad no se encuentra en la lista.")
+        return precio
+        """
+        for c, coste in zip(self.__ciudades, self.__costes):
+            if c == ciudad:
+                return coste
+    except Exception:
+        raise NoEncontradoError("La ciudad no se encuentra en la lista.")
